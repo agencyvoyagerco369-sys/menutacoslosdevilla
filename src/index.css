@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Los de Villa Design System - Taquería Style */
+@layer base {
+  :root {
+    /* Core Brand Colors - Warm Rustic Red & Cream */
+    --background: 30 25% 97%;
+    --foreground: 15 40% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 15 40% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 15 40% 12%;
+
+    /* Primary - Deep Crimson Red (from logo) */
+    --primary: 8 70% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Warm Tan/Brown */
+    --secondary: 30 50% 42%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Accent - Dark Brown */
+    --accent: 15 45% 18%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Highlight - Golden Cream */
+    --highlight: 40 80% 58%;
+    --highlight-foreground: 15 40% 12%;
+
+    /* Muted */
+    --muted: 30 15% 92%;
+    --muted-foreground: 15 20% 45%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders & Inputs */
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 8 70% 35%;
+
+    --radius: 1rem;
+
+    /* Custom Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(8 70% 35%) 0%, hsl(30 50% 42%) 100%);
+    --gradient-hero: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+    --gradient-card: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%);
+    --gradient-turquoise: linear-gradient(135deg, hsl(30 50% 42%) 0%, hsl(30 50% 52%) 100%);
+    --gradient-purple: linear-gradient(135deg, hsl(15 45% 18%) 0%, hsl(15 45% 28%) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px rgba(0, 0, 0, 0.1);
+    --shadow-elevated: 0 8px 30px -8px rgba(139, 42, 26, 0.3);
+    --shadow-card: 0 4px 20px -4px rgba(0, 0, 0, 0.15);
+    --shadow-float: 0 10px 40px -10px rgba(0, 0, 0, 0.25);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 15 30% 8%;
+    --foreground: 30 25% 95%;
+
+    --card: 15 30% 12%;
+    --card-foreground: 30 25% 95%;
+
+    --popover: 15 30% 12%;
+    --popover-foreground: 30 25% 95%;
+
+    --primary: 8 70% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 50% 42%;
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 15 45% 35%;
+    --accent-foreground: 0 0% 100%;
+
+    --highlight: 40 80% 58%;
+    --highlight-foreground: 15 40% 12%;
+
+    --muted: 15 20% 18%;
+    --muted-foreground: 30 15% 65%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 15 20% 20%;
+    --input: 15 20% 20%;
+    --ring: 8 70% 45%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+@layer components {
+  /* Food Porn Card Styling */
+  .food-card {
+    @apply relative overflow-hidden rounded-2xl bg-card;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .food-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-float);
+  }
+
+  .food-card-image {
+    @apply w-full aspect-[4/3] object-cover;
+  }
+
+  .food-card-gradient {
+    background: var(--gradient-card);
+  }
+
+  /* Hero Styles */
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  /* Delivery Tags */
+  .delivery-tag {
+    @apply inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium;
+    @apply bg-muted text-muted-foreground whitespace-nowrap;
+  }
+
+  /* Primary Gradient Button */
+  .btn-primary-gradient {
+    background: var(--gradient-primary);
+    @apply text-white font-semibold px-6 py-3 rounded-full;
+    box-shadow: var(--shadow-elevated);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-primary-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px -8px rgba(139, 42, 26, 0.4);
+  }
+
+  .btn-primary-gradient:active {
+    transform: translateY(0);
+  }
+
+  /* Floating Cart */
+  .floating-cart {
+    @apply fixed bottom-4 left-4 right-4 z-50;
+    box-shadow: var(--shadow-float);
+  }
+
+  /* Category Tabs (New Delivery Style) */
+  .category-tab {
+    @apply flex flex-col items-center gap-1 px-4 py-3 min-w-[72px] transition-all;
+    @apply border-b-2 border-transparent;
+  }
+
+  .category-tab-active {
+    @apply text-primary border-primary;
+  }
+
+  .category-tab-inactive {
+    @apply text-muted-foreground hover:text-foreground;
+  }
+
+  /* Legacy Category Pills */
+  .category-nav {
+    @apply sticky top-0 z-40 bg-background/95 backdrop-blur-md;
+    box-shadow: 0 2px 10px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  .category-pill {
+    @apply px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200;
+  }
+
+  .category-pill-active {
+    background: var(--gradient-primary);
+    @apply text-white;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .category-pill-inactive {
+    @apply bg-muted text-muted-foreground hover:bg-secondary hover:text-secondary-foreground;
+  }
+
+  /* Price Tag */
+  .price-tag {
+    @apply font-bold text-xl text-foreground;
+  }
+
+  /* Quantity Selector */
+  .quantity-selector {
+    @apply flex items-center gap-3 bg-muted rounded-full px-2 py-1;
+  }
+
+  .quantity-btn {
+    @apply w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors;
+  }
+
+  /* Checkout Form */
+  .checkout-input {
+    @apply w-full px-4 py-3 rounded-xl bg-muted border-2 border-transparent;
+    @apply focus:border-primary focus:outline-none transition-colors;
+  }
+
+  /* Animations */
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(139, 42, 26, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(139, 42, 26, 0); }
+  }
+
+  @keyframes slide-up {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(8 70% 30%);
+}
