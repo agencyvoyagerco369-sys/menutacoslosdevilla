@@ -50,6 +50,7 @@ export interface CustomerInfo {
 }
 
 export const CATEGORIES = [
+  { id: 'promociones', name: 'Promociones', emoji: '🔥' },
   { id: 'platillos', name: 'Platillos', emoji: '🌮' },
   { id: 'bebidas', name: 'Bebidas', emoji: '🥤' },
 ];

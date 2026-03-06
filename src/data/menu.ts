@@ -17,7 +17,51 @@ import aguaPina from '@/assets/agua-pina.png';
 import aguaTamarindo from '@/assets/agua-tamarindo.png';
 import cocaCola from '@/assets/coca-cola.png';
 
+// Promociones
+import promoTaquera from '@/assets/promo-taquera.png';
+import promoChorreada from '@/assets/promo-chorreada.png';
+import promoTorito from '@/assets/promo-torito.png';
+import promoQuesadilla from '@/assets/promo-quesadilla.png';
+
 export const MENU_PRODUCTS: Product[] = [
+  // PROMOCIONES
+  {
+    id: 'promo-taquera',
+    name: 'Promo Taquera',
+    description: '3 tacos a elegir (harina o maíz) con carne asada. ¡Ideal para empezar!',
+    price: 99,
+    image: promoTaquera,
+    category: 'promociones',
+    extras: AVAILABLE_EXTRAS,
+  },
+  {
+    id: 'promo-chorreada',
+    name: 'Promo Chorreada Completa',
+    description: '2 Chorreadas (gordita de masa con asiento, queso y carne), 1 litro de agua fresca y 2 porciones de frijoles charros.',
+    price: 199,
+    image: promoChorreada,
+    category: 'promociones',
+    extras: AVAILABLE_EXTRAS,
+  },
+  {
+    id: 'promo-torito',
+    name: 'Promo Torito Especial',
+    description: '2 Toritos (chile verde relleno de carne asada con queso gratinado), 1 litro de agua fresca y 2 porciones de frijoles charros.',
+    price: 199,
+    image: promoTorito,
+    category: 'promociones',
+    extras: AVAILABLE_EXTRAS,
+  },
+  {
+    id: 'promo-quesadilla',
+    name: 'Promo Quesadilla Completa',
+    description: '2 Quesadillas (tortilla de harina con queso y carne), 1 litro de agua fresca y 2 porciones de frijoles charros.',
+    price: 199,
+    image: promoQuesadilla,
+    category: 'promociones',
+    extras: AVAILABLE_EXTRAS,
+  },
+
   // PLATILLOS
   {
     id: 'tacos-harina',
