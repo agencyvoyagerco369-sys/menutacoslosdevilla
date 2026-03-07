@@ -1,18 +1,21 @@
 import { useState } from 'react';
 import { Product } from '@/types/menu';
 import { useCart } from '@/contexts/CartContext';
-import { Plus, Check, Sparkles } from 'lucide-react';
+import { Plus, Check, Sparkles, ShoppingCart } from 'lucide-react';
 
 interface UpsellSuggestionsProps {
     suggestions: { product: Product; badge?: string }[];
     onClose: () => void;
+    onGoToCart: () => void;
 }
 
-export function UpsellSuggestions({ suggestions, onClose }: UpsellSuggestionsProps) {
+export function UpsellSuggestions({ suggestions, onClose, onGoToCart }: UpsellSuggestionsProps) {
     const { addItem } = useCart();
     const [addedIds, setAddedIds] = useState<Set<string>>(new Set());
 
     if (suggestions.length === 0) return null;
+
+    const hasAddedSomething = addedIds.size > 0;
 
     const handleQuickAdd = (product: Product) => {
         addItem(product, 1, product.sizes?.[0], [], '');
@@ -43,14 +46,17 @@ export function UpsellSuggestions({ suggestions, onClose }: UpsellSuggestionsPro
             </div>
 
             {/* Suggestion Cards */}
-            <div className="px-5 pb-4 space-y-2.5">
+            <div className="px-5 pb-4 space-y-2.5 max-h-[45vh] overflow-y-auto">
                 {suggestions.map(({ product, badge }) => {
                     const isAdded = addedIds.has(product.id);
 
                     return (
                         <div
                             key={product.id}
-                            className="flex items-center gap-3 p-3 bg-muted/50 rounded-2xl border border-border/50 transition-all hover:bg-muted/80"
+                            className={`flex items-center gap-3 p-3 rounded-2xl border transition-all ${isAdded
+                                    ? 'bg-green-50 border-green-200'
+                                    : 'bg-muted/50 border-border/50 hover:bg-muted/80'
+                                }`}
                         >
                             {/* Mini Image */}
                             <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
@@ -59,9 +65,14 @@ export function UpsellSuggestions({ suggestions, onClose }: UpsellSuggestionsPro
                                     alt={product.name}
                                     className="w-full h-full object-cover"
                                 />
-                                {badge && (
+                                {badge && !isAdded && (
                                     <div className="absolute -top-0.5 -left-0.5 bg-highlight text-[8px] font-bold text-highlight-foreground px-1.5 py-0.5 rounded-br-lg rounded-tl-lg whitespace-nowrap">
                                         {badge}
+                                    </div>
+                                )}
+                                {isAdded && (
+                                    <div className="absolute inset-0 bg-green-500/30 flex items-center justify-center">
+                                        <Check className="w-6 h-6 text-green-700" />
                                     </div>
                                 )}
                             </div>
@@ -71,7 +82,7 @@ export function UpsellSuggestions({ suggestions, onClose }: UpsellSuggestionsPro
                                 <h4 className="font-semibold text-foreground text-sm leading-tight line-clamp-1">
                                     {product.name}
                                 </h4>
-                                <span className="font-bold text-primary text-sm">
+                                <span className={`font-bold text-sm ${isAdded ? 'text-green-600' : 'text-primary'}`}>
                                     ${product.sizes?.[0]?.price ?? product.price}
                                 </span>
                             </div>
@@ -80,7 +91,7 @@ export function UpsellSuggestions({ suggestions, onClose }: UpsellSuggestionsPro
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleQuickAdd(product);
+                                    if (!isAdded) handleQuickAdd(product);
                                 }}
                                 disabled={isAdded}
                                 className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all active:scale-95 ${isAdded
@@ -105,14 +116,34 @@ export function UpsellSuggestions({ suggestions, onClose }: UpsellSuggestionsPro
                 })}
             </div>
 
-            {/* Continue Button */}
-            <div className="px-5 pb-5">
-                <button
-                    onClick={onClose}
-                    className="w-full py-3.5 rounded-2xl font-bold text-sm bg-muted text-foreground hover:bg-muted/80 transition-all active:scale-[0.98]"
-                >
-                    No gracias, continuar →
-                </button>
+            {/* Bottom Action Button - changes based on whether user added something */}
+            <div className="px-5 pb-5 space-y-2">
+                {hasAddedSomething ? (
+                    <>
+                        {/* Primary: Go to cart / checkout */}
+                        <button
+                            onClick={onGoToCart}
+                            className="w-full py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 animate-slide-up"
+                        >
+                            <ShoppingCart className="w-4 h-4" />
+                            Ver mi pedido y pagar 🛒
+                        </button>
+                        {/* Secondary: Keep browsing */}
+                        <button
+                            onClick={onClose}
+                            className="w-full py-2.5 rounded-2xl font-medium text-xs text-muted-foreground hover:text-foreground transition-all"
+                        >
+                            Seguir viendo el menú
+                        </button>
+                    </>
+                ) : (
+                    <button
+                        onClick={onClose}
+                        className="w-full py-3.5 rounded-2xl font-bold text-sm bg-muted text-foreground hover:bg-muted/80 transition-all active:scale-[0.98]"
+                    >
+                        No gracias, continuar →
+                    </button>
+                )}
             </div>
         </div>
     );

@@ -10,9 +10,10 @@ interface ProductCustomizeSheetProps {
   product: Product | null;
   isOpen: boolean;
   onClose: () => void;
+  onGoToCart: () => void;
 }
 
-export function ProductCustomizeSheet({ product, isOpen, onClose }: ProductCustomizeSheetProps) {
+export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: ProductCustomizeSheetProps) {
   const { addItem, items } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<SizeOption | undefined>();
@@ -117,6 +118,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose }: ProductCusto
               <UpsellSuggestions
                 suggestions={upsellSuggestions}
                 onClose={handleUpsellClose}
+                onGoToCart={() => { handleUpsellClose(); onGoToCart(); }}
               />
             </div>
           </div>
@@ -169,8 +171,8 @@ export function ProductCustomizeSheet({ product, isOpen, onClose }: ProductCusto
                         key={size.id}
                         onClick={() => setSelectedSize(size)}
                         className={`relative p-4 rounded-2xl border-2 transition-all ${selectedSize?.id === size.id
-                            ? 'border-primary bg-primary/5'
-                            : 'border-border hover:border-primary/50'
+                          ? 'border-primary bg-primary/5'
+                          : 'border-border hover:border-primary/50'
                           }`}
                       >
                         {selectedSize?.id === size.id && (
@@ -287,8 +289,8 @@ export function ProductCustomizeSheet({ product, isOpen, onClose }: ProductCusto
                 onClick={handleAddToCart}
                 disabled={isAdded}
                 className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${isAdded
-                    ? 'bg-green-500 text-white'
-                    : 'bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.98]'
+                  ? 'bg-green-500 text-white'
+                  : 'bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.98]'
                   }`}
               >
                 {isAdded ? (

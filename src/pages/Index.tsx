@@ -39,7 +39,7 @@ function MenuApp() {
       />
 
       {/* Active Category Products */}
-      <CategorySection 
+      <CategorySection
         categoryId={activeCategory}
         products={MENU_PRODUCTS}
         onCustomize={setCustomizeProduct}
@@ -56,6 +56,7 @@ function MenuApp() {
         product={customizeProduct}
         isOpen={!!customizeProduct}
         onClose={() => setCustomizeProduct(null)}
+        onGoToCart={() => { setCustomizeProduct(null); setIsCartOpen(true); }}
       />
     </div>
   );
