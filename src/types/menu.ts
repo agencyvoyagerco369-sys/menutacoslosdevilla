@@ -43,6 +43,7 @@ export interface CustomerInfo {
   interiorNumber: string;
   neighborhood: string;
   gatedCommunity: boolean;
+  optInMarketing?: boolean;
   accessCode: string;
   references: string;
   paymentMethod: 'efectivo' | 'transferencia';
