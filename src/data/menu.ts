@@ -177,7 +177,7 @@ export const MENU_PRODUCTS: Product[] = [
     id: 'taco-tripa',
     name: 'Taco de Tripa',
     description: 'Taco con tripa asada crujiente, repollo, jugo de tomate, salsa verde y limón. El clásico de la taquería.',
-    price: 30,
+    price: 40,
     image: tacoTripa,
     category: 'platillos',
     extras: AVAILABLE_EXTRAS,
