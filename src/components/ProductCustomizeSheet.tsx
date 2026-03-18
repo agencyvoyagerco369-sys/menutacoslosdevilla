@@ -6,6 +6,14 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { UpsellSuggestions } from './UpsellSuggestions';
 import { getUpsellSuggestions } from '@/data/upsellRules';
 
+const PROMO_DRINK_FLAVORS = [
+  'Horchata',
+  'Cebada',
+  'Jamaica',
+  'Piña',
+  'Tamarindo',
+];
+
 interface ProductCustomizeSheetProps {
   product: Product | null;
   isOpen: boolean;
@@ -23,6 +31,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
   const [showUpsell, setShowUpsell] = useState(false);
   const [upsellSuggestions, setUpsellSuggestions] = useState<{ product: Product; badge?: string }[]>([]);
   const [promoTacos, setPromoTacos] = useState({ harina: 3, maiz: 0 });
+  const [selectedDrinkFlavor, setSelectedDrinkFlavor] = useState<string>(PROMO_DRINK_FLAVORS[0]);
 
   // Reset state when product changes
   useEffect(() => {
@@ -35,6 +44,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
       setShowUpsell(false);
       setUpsellSuggestions([]);
       setPromoTacos({ harina: 3, maiz: 0 });
+      setSelectedDrinkFlavor(PROMO_DRINK_FLAVORS[0]);
     }
   }, [product]);
 
@@ -77,6 +87,11 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
 
   const handleAddToCart = () => {
     let finalNotes = notes;
+    if (product.category === 'promociones') {
+      const drinkNote = `🥤 Bebida elegida: Agua de ${selectedDrinkFlavor}`;
+      finalNotes = finalNotes ? `${drinkNote}\n${finalNotes}` : drinkNote;
+    }
+    
     if (product.id === 'promo-taquera') {
       const tacoBreakdown = `🌮 Tacos elegidos: ${promoTacos.harina} de Harina, ${promoTacos.maiz} de Maíz`;
       finalNotes = finalNotes ? `${tacoBreakdown}\n${finalNotes}` : tacoBreakdown;
@@ -263,6 +278,37 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
                         </button>
                       </div>
                     </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Promo Drink Flavor Selector */}
+              {product.category === 'promociones' && (
+                <div className="px-5 pb-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold text-foreground flex items-center gap-2">
+                      🥤 Elige el sabor de tu agua
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {PROMO_DRINK_FLAVORS.map((flavor) => (
+                      <button
+                        key={flavor}
+                        onClick={() => setSelectedDrinkFlavor(flavor)}
+                        className={`relative p-3 rounded-2xl border-2 transition-all flex items-center justify-between ${
+                          selectedDrinkFlavor === flavor
+                            ? 'border-primary bg-primary/5'
+                            : 'border-border hover:border-primary/50'
+                        }`}
+                      >
+                        <span className="font-medium text-foreground text-sm">{flavor}</span>
+                        {selectedDrinkFlavor === flavor && (
+                          <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                            <Check className="w-3 h-3 text-primary-foreground" />
+                          </div>
+                        )}
+                      </button>
+                    ))}
                   </div>
                 </div>
               )}
