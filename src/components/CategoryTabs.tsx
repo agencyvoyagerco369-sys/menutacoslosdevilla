@@ -77,13 +77,7 @@ export function CategoryTabs({ activeCategory, onCategoryChange }: CategoryTabsP
                   {category.name}
                 </span>
 
-                {/* Promo badge pulse */}
-                {isPromo && !isActive && (
-                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-destructive rounded-full animate-ping" />
-                )}
-                {isPromo && !isActive && (
-                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-destructive rounded-full" />
-                )}
+
               </button>
             );
           })}
