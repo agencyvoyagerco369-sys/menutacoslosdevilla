@@ -48,7 +48,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!isBusinessOpen()) {
       toast.error('Lo sentimos, estamos cerrados. Nuestro horario es de 10 AM a 6 PM.');
       return;
@@ -58,100 +58,93 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
     const message = generateWhatsAppMessage(items, total, customer);
 
-    try {
-      // 1. Save or Update Customer (CRM)
-      // Upsert basándose en el teléfono
-      const { data: customerData, error: customerError } = await (supabase as any)
-        .from('customers')
-        .upsert({
-          phone: customer.phone,
-          name: customer.name,
-          opt_in_marketing: customer.optInMarketing ?? true,
-          last_order_date: new Date().toISOString(),
-          // Se sumará en el trigger o código backend luego, por ahora solo el upsert básico.
-        }, { onConflict: 'phone' })
-        .select()
-        .single();
-
-      if (customerError) {
-        console.error("Error guardando cliente:", customerError);
-      }
-
-      // 2. Create Order
-      const { data: orderData, error: orderError } = await (supabase as any)
-        .from('orders')
-        .insert({
-          customer_id: customerData?.id || null,
-          customer_name: customer.name,
-          customer_phone: customer.phone,
-          status: 'pending',
-          payment_method: customer.paymentMethod,
-          payment_status: 'unpaid',
-          total_amount: total,
-          delivery_type: 'delivery', // o pickup dependiendo de la lógica futura
-          delivery_address: {
-            street: customer.street,
-            exteriorNumber: customer.exteriorNumber,
-            interiorNumber: customer.interiorNumber,
-            neighborhood: customer.neighborhood,
-            dwellingType: customer.dwellingType,
-            gatedCommunity: customer.gatedCommunity,
-            accessCode: customer.accessCode,
-            references: customer.references
-          }
-        })
-        .select()
-        .single();
-
-      if (orderError) {
-        console.error("Error creando orden:", orderError);
-      }
-
-      // 3. Save Order Items if order was created
-      if (orderData && !orderError) {
-        const orderItemsPayload = items.map(item => ({
-          order_id: orderData.id,
-          product_id: item.product.id,
-          product_name: item.product.name,
-          quantity: item.quantity,
-          unit_price: item.selectedSize?.price || item.product.price,
-          subtotal: item.subtotal,
-          selected_size: item.selectedSize?.name,
-          extras: item.selectedExtras,
-          notes: item.notes
-        }));
-
-        await (supabase as any).from('order_items').insert(orderItemsPayload);
-      }
-
-    } catch (dbError) {
-      console.error("Critical DB error during checkout:", dbError);
-    }
-
+    // 🚀 PRIMERO: Redirigir a WhatsApp INMEDIATAMENTE (cero fricción)
     sendToWhatsApp(message);
 
-    // Send email notification in background
-    try {
-      const emailPayload = {
-        items: items.map(item => ({
-          quantity: item.quantity,
-          productName: item.product.name,
-          sizeName: item.selectedSize?.name,
-          extras: item.selectedExtras.map(e => e.name),
-          notes: item.notes,
-          subtotal: item.subtotal,
-        })),
-        total,
-        customer,
-      };
-      supabase.functions.invoke('send-order-email', { body: emailPayload });
-    } catch (e) {
-      console.error('Email notification failed:', e);
-    }
-
+    // Limpiar UI de inmediato
+    const savedItems = [...items];
+    const savedTotal = total;
+    const savedCustomer = { ...customer };
     clearCart();
     onClose();
     setStep('cart');
+
+    // 🔄 DESPUÉS: Guardar en DB en background (no bloquea al usuario)
+    (async () => {
+      try {
+        const { data: customerData } = await (supabase as any)
+          .from('customers')
+          .upsert({
+            phone: savedCustomer.phone,
+            name: savedCustomer.name,
+            opt_in_marketing: savedCustomer.optInMarketing ?? true,
+            last_order_date: new Date().toISOString(),
+          }, { onConflict: 'phone' })
+          .select()
+          .single();
+
+        const { data: orderData, error: orderError } = await (supabase as any)
+          .from('orders')
+          .insert({
+            customer_id: customerData?.id || null,
+            customer_name: savedCustomer.name,
+            customer_phone: savedCustomer.phone,
+            status: 'pending',
+            payment_method: savedCustomer.paymentMethod,
+            payment_status: 'unpaid',
+            total_amount: savedTotal,
+            delivery_type: 'delivery',
+            delivery_address: {
+              street: savedCustomer.street,
+              exteriorNumber: savedCustomer.exteriorNumber,
+              interiorNumber: savedCustomer.interiorNumber,
+              neighborhood: savedCustomer.neighborhood,
+              dwellingType: savedCustomer.dwellingType,
+              gatedCommunity: savedCustomer.gatedCommunity,
+              accessCode: savedCustomer.accessCode,
+              references: savedCustomer.references,
+            },
+          })
+          .select()
+          .single();
+
+        if (orderData && !orderError) {
+          const orderItemsPayload = savedItems.map(item => ({
+            order_id: orderData.id,
+            product_id: item.product.id,
+            product_name: item.product.name,
+            quantity: item.quantity,
+            unit_price: item.selectedSize?.price || item.product.price,
+            subtotal: item.subtotal,
+            selected_size: item.selectedSize?.name,
+            extras: item.selectedExtras,
+            notes: item.notes,
+          }));
+          await (supabase as any).from('order_items').insert(orderItemsPayload);
+        }
+      } catch (e) {
+        console.error('Background DB save error:', e);
+      }
+
+      try {
+        supabase.functions.invoke('send-order-email', {
+          body: {
+            items: savedItems.map(item => ({
+              quantity: item.quantity,
+              productName: item.product.name,
+              sizeName: item.selectedSize?.name,
+              extras: item.selectedExtras.map(e => e.name),
+              notes: item.notes,
+              subtotal: item.subtotal,
+            })),
+            total: savedTotal,
+            customer: savedCustomer,
+          },
+        });
+      } catch (e) {
+        console.error('Email notification failed:', e);
+      }
+    })();
   };
 
   if (!isOpen) return null;
