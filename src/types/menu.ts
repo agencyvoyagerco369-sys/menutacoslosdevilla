@@ -63,5 +63,5 @@ export const AVAILABLE_EXTRAS: Extra[] = [
   { id: 'tortilla-harina', name: 'Tortilla de harina', price: 5 },
   { id: 'guacamole', name: 'Guacamole', price: 15 },
   { id: 'salsa-tatemada', name: 'Salsa tatemada', price: 15 },
-  { id: 'limon', name: 'Limón', price: 10 },
+  { id: 'salsa-bandera', name: 'Salsa Bandera', price: 10 },
 ];
