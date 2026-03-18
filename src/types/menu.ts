@@ -64,4 +64,6 @@ export const AVAILABLE_EXTRAS: Extra[] = [
   { id: 'guacamole', name: 'Guacamole', price: 15 },
   { id: 'salsa-tatemada', name: 'Salsa tatemada', price: 15 },
   { id: 'salsa-bandera', name: 'Salsa Bandera', price: 10 },
+  { id: 'frijoles-porcion', name: 'Frijoles Charros (1 porción)', price: 15 },
+  { id: 'frijoles-medio', name: 'Frijoles Charros (1/2 Litro)', price: 25 },
 ];
