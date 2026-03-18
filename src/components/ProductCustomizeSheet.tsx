@@ -88,7 +88,8 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
   const handleAddToCart = () => {
     let finalNotes = notes;
     if (product.category === 'promociones') {
-      const drinkNote = `🥤 Bebida elegida: Agua de ${selectedDrinkFlavor}`;
+      const promoDrinkSize = product.id === 'promo-taquera' ? '1/2 Litro' : '1 Litro';
+      const drinkNote = `🥤 Bebida elegida: Agua de ${selectedDrinkFlavor} (${promoDrinkSize})`;
       finalNotes = finalNotes ? `${drinkNote}\n${finalNotes}` : drinkNote;
     }
     
@@ -287,7 +288,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
                 <div className="px-5 pb-4 space-y-3">
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold text-foreground flex items-center gap-2">
-                      🥤 Elige el sabor de tu agua
+                      🥤 Elige el sabor de tu agua ({product.id === 'promo-taquera' ? '1/2 Litro' : '1 Litro'})
                     </h3>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
