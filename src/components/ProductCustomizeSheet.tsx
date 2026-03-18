@@ -138,14 +138,33 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
         {showUpsell ? (
           <div className="flex flex-col h-full">
             {/* Compact success header */}
-            <div className="bg-green-500 px-5 py-4 flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <Check className="w-5 h-5 text-white" />
+            <div className="bg-green-500 px-5 py-4 flex items-center justify-between gap-3 shadow-sm z-10">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shrink-0">
+                  <Check className="w-5 h-5 text-white" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-white font-bold text-sm truncate">¡Agregado al carrito!</p>
+                  <p className="text-white/90 text-xs truncate">{quantity} x {product.name}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-white font-bold text-sm">¡{product.name} agregado!</p>
-                <p className="text-white/80 text-xs">{quantity} x ${basePrice}</p>
-              </div>
+
+              <button
+                onClick={() => {
+                  setIsAdded(false);
+                  setShowUpsell(false);
+                  setQuantity(1);
+                  setExtraQuantities({});
+                  setNotes('');
+                  setSelectedSize(product?.sizes?.[0]);
+                  setPromoTacos({ harina: 3, maiz: 0 });
+                  setSelectedDrinkFlavor(PROMO_DRINK_FLAVORS[0]);
+                }}
+                className="bg-white text-green-700 text-[11px] px-3 py-2 rounded-xl font-black active:scale-95 transition-transform flex items-center gap-1.5 shrink-0 shadow-sm hover:bg-green-50"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                Configurar otro
+              </button>
             </div>
 
             {/* Upsell suggestions */}
