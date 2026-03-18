@@ -22,6 +22,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
   const [isAdded, setIsAdded] = useState(false);
   const [showUpsell, setShowUpsell] = useState(false);
   const [upsellSuggestions, setUpsellSuggestions] = useState<{ product: Product; badge?: string }[]>([]);
+  const [promoTacos, setPromoTacos] = useState({ harina: 3, maiz: 0 });
 
   // Reset state when product changes
   useEffect(() => {
@@ -33,6 +34,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
       setIsAdded(false);
       setShowUpsell(false);
       setUpsellSuggestions([]);
+      setPromoTacos({ harina: 3, maiz: 0 });
     }
   }, [product]);
 
@@ -62,8 +64,25 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
     });
   };
 
+  const totalPromoTacos = promoTacos.harina + promoTacos.maiz;
+
+  const handlePromoTacoChange = (type: 'harina' | 'maiz', delta: number) => {
+    setPromoTacos(prev => {
+      const newQty = prev[type] + delta;
+      if (newQty < 0) return prev;
+      if (delta > 0 && prev.harina + prev.maiz >= 3) return prev;
+      return { ...prev, [type]: newQty };
+    });
+  };
+
   const handleAddToCart = () => {
-    addItem(product, quantity, selectedSize, getSelectedExtrasArray(), notes);
+    let finalNotes = notes;
+    if (product.id === 'promo-taquera') {
+      const tacoBreakdown = `🌮 Tacos elegidos: ${promoTacos.harina} de Harina, ${promoTacos.maiz} de Maíz`;
+      finalNotes = finalNotes ? `${tacoBreakdown}\n${finalNotes}` : tacoBreakdown;
+    }
+
+    addItem(product, quantity, selectedSize, getSelectedExtrasArray(), finalNotes);
     setIsAdded(true);
 
     if ('vibrate' in navigator) {
@@ -188,6 +207,66 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
                 </div>
               )}
 
+              {/* Promo Taquera Tacos Selector */}
+              {product.id === 'promo-taquera' && (
+                <div className="px-5 pb-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold text-foreground flex items-center gap-2">
+                      🌮 Personaliza tus 3 Tacos
+                      {totalPromoTacos !== 3 && (
+                        <span className="text-xs text-destructive font-bold">(Faltan {3 - totalPromoTacos})</span>
+                      )}
+                    </h3>
+                  </div>
+
+                  <div className="divide-y divide-border border-2 border-primary/10 rounded-2xl overflow-hidden bg-card/50">
+                    {/* Harina */}
+                    <div className="flex items-center justify-between p-4">
+                      <span className="font-medium text-foreground">Tacos de Harina</span>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => handlePromoTacoChange('harina', -1)}
+                          disabled={promoTacos.harina === 0}
+                          className="w-9 h-9 rounded-full border-2 border-primary flex items-center justify-center text-primary disabled:opacity-50 disabled:border-muted disabled:text-muted-foreground active:scale-95 transition-transform"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
+                        <span className="w-5 text-center font-bold text-[17px]">{promoTacos.harina}</span>
+                        <button
+                          onClick={() => handlePromoTacoChange('harina', 1)}
+                          disabled={totalPromoTacos >= 3}
+                          className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground disabled:opacity-50 disabled:bg-muted active:scale-95 transition-transform"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Maíz */}
+                    <div className="flex items-center justify-between p-4">
+                      <span className="font-medium text-foreground">Tacos de Maíz</span>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => handlePromoTacoChange('maiz', -1)}
+                          disabled={promoTacos.maiz === 0}
+                          className="w-9 h-9 rounded-full border-2 border-primary flex items-center justify-center text-primary disabled:opacity-50 disabled:border-muted disabled:text-muted-foreground active:scale-95 transition-transform"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
+                        <span className="w-5 text-center font-bold text-[17px]">{promoTacos.maiz}</span>
+                        <button
+                          onClick={() => handlePromoTacoChange('maiz', 1)}
+                          disabled={totalPromoTacos >= 3}
+                          className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground disabled:opacity-50 disabled:bg-muted active:scale-95 transition-transform"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Divider */}
               <div className="h-2 bg-muted/50" />
 
@@ -287,7 +366,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
               {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
-                disabled={isAdded}
+                disabled={isAdded || (product?.id === 'promo-taquera' && totalPromoTacos !== 3)}
                 className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${isAdded
                   ? 'bg-green-500 text-white'
                   : 'bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.98]'
