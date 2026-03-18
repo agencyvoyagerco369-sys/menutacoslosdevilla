@@ -77,13 +77,13 @@ export function UpsellSuggestions({ suggestions, onClose, onGoToCart }: UpsellSu
                                 )}
                             </div>
 
-                            {/* Info */}
-                            <div className="flex-1 min-w-0">
-                                <h4 className="font-semibold text-foreground text-sm leading-tight line-clamp-1">
-                                    {product.name}
-                                </h4>
-                                <span className={`font-bold text-sm ${isAdded ? 'text-green-600' : 'text-primary'}`}>
-                                    ${product.sizes?.[0]?.price ?? product.price}
+                                {/* Info */}
+                                <div className="flex-1 min-w-0">
+                                    <h4 className="font-semibold text-foreground text-sm leading-tight line-clamp-1">
+                                        {product.name} {product.sizes?.[0] ? `(${product.sizes[0].name})` : ''}
+                                    </h4>
+                                    <span className={`font-bold text-sm ${isAdded ? 'text-green-600' : 'text-primary'}`}>
+                                        ${product.sizes?.[0]?.price ?? product.price}
                                 </span>
                             </div>
 
