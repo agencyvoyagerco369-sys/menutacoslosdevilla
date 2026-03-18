@@ -28,7 +28,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'promo-taquera',
     name: 'Promo Taquera',
-    description: '3 tacos de harina o maíz a elegir, 1 porción de frijoles charros y 1/2 litro de agua de sabor a elegir. Incluye: Repollo, aguacate, salsa de jugo de tomate, pepino, salsa verde, zanahoria, salsa tatemada y cebollita asada. (Especifica tortillas y sabor de agua en notas)',
+    description: '3 tacos de harina o maíz a elegir, 1 porción de frijoles charros y 1/2 litro de agua de sabor a elegir. Incluye: Repollo, aguacate, salsa de jugo de tomate, pepino, salsa verde, zanahoria, salsa tatemada y cebollita asada.',
     price: 135,
     image: promoTaquera,
     category: 'promociones',
@@ -37,7 +37,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'promo-chorreada',
     name: 'Promo Chorreada Completa',
-    description: '2 Chorreadas (gordita de masa con asiento, queso y carne), 1 litro de agua fresca a elegir y 2 porciones de frijoles charros. Incluye: Repollo, aguacate, salsa de jugo de tomate, pepino, salsa verde, zanahoria, salsa tatemada y cebollita asada. (Especifica sabor en notas)',
+    description: '2 Chorreadas (gordita de masa con asiento, queso y carne), 1 litro de agua fresca a elegir y 2 porciones de frijoles charros. Incluye: Repollo, aguacate, salsa de jugo de tomate, pepino, salsa verde, zanahoria, salsa tatemada y cebollita asada.',
     price: 199,
     image: promoChorreada,
     category: 'promociones',
@@ -46,7 +46,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'promo-torito',
     name: 'Promo Torito Especial',
-    description: '2 Toritos (chile verde relleno de carne asada con queso gratinado), 1 litro de agua a elegir y 2 porciones de frijoles charros. Incluye: Repollo, aguacate, salsa de jugo de tomate, pepino, salsa verde, zanahoria, salsa tatemada y cebollita asada. (Especifica sabor en notas)',
+    description: '2 Toritos (chile verde relleno de carne asada con queso gratinado), 1 litro de agua a elegir y 2 porciones de frijoles charros. Incluye: Repollo, aguacate, salsa de jugo de tomate, pepino, salsa verde, zanahoria, salsa tatemada y cebollita asada.',
     price: 199,
     image: promoTorito,
     category: 'promociones',
@@ -55,7 +55,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'promo-quesadilla',
     name: 'Promo Quesadilla Completa',
-    description: '2 Quesadillas, 1 litro de agua fresca a elegir y 2 porciones de frijoles charros. Incluye: Repollo, aguacate, salsa de jugo de tomate, pepino, salsa verde, zanahoria, salsa tatemada y cebollita asada. (Especifica sabor y tipo de tortilla en notas)',
+    description: '2 Quesadillas, 1 litro de agua fresca a elegir y 2 porciones de frijoles charros. Incluye: Repollo, aguacate, salsa de jugo de tomate, pepino, salsa verde, zanahoria, salsa tatemada y cebollita asada.',
     price: 199,
     image: promoQuesadilla,
     category: 'promociones',
