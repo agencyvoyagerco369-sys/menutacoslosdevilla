@@ -14,137 +14,17 @@ interface CartDrawerProps {
 
 export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, total, updateQuantity, removeItem, clearCart } = useCart();
-  const [step, setStep] = useState<'cart' | 'checkout'>('cart');
-  const [customer, setCustomer] = useState<CustomerInfo>({
-    name: '',
-    phone: '',
-    street: '',
-    exteriorNumber: '',
-    dwellingType: 'casa',
-    interiorNumber: '',
-    neighborhood: '',
-    gatedCommunity: false,
-    accessCode: '',
-    references: '',
-    paymentMethod: 'efectivo',
-    cashAmount: '',
-    optInMarketing: true,
-  });
-  const [errors, setErrors] = useState<Partial<CustomerInfo>>({});
 
-  const validateForm = (): boolean => {
-    const newErrors: Partial<CustomerInfo> = {};
-
-    if (!customer.name.trim()) newErrors.name = 'Ingresa tu nombre';
-    if (!customer.phone.trim() || customer.phone.length < 10) newErrors.phone = 'Ingresa un teléfono válido';
-    if (!customer.street.trim()) newErrors.street = 'Ingresa tu calle';
-    if (customer.dwellingType === 'casa' && !customer.exteriorNumber.trim()) newErrors.exteriorNumber = 'Ingresa el número exterior';
-    if (!customer.neighborhood.trim()) newErrors.neighborhood = 'Ingresa tu colonia';
-    if (customer.gatedCommunity && !customer.accessCode.trim()) {
-      newErrors.accessCode = 'Ingresa la contraseña de acceso';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = () => {
+  const handleSendToWhatsApp = () => {
     if (!isBusinessOpen()) {
       toast.error('Lo sentimos, estamos cerrados. Nuestro horario es de 10 AM a 6 PM.');
       return;
     }
 
-    if (!validateForm()) return;
-
-    const message = generateWhatsAppMessage(items, total, customer);
-
-    // 🚀 PRIMERO: Redirigir a WhatsApp INMEDIATAMENTE (cero fricción)
+    const message = generateCartWhatsAppMessage(items, total);
     sendToWhatsApp(message);
-
-    // Limpiar UI de inmediato
-    const savedItems = [...items];
-    const savedTotal = total;
-    const savedCustomer = { ...customer };
     clearCart();
     onClose();
-    setStep('cart');
-
-    // 🔄 DESPUÉS: Guardar en DB en background (no bloquea al usuario)
-    (async () => {
-      try {
-        const { data: customerData } = await (supabase as any)
-          .from('customers')
-          .upsert({
-            phone: savedCustomer.phone,
-            name: savedCustomer.name,
-            opt_in_marketing: savedCustomer.optInMarketing ?? true,
-            last_order_date: new Date().toISOString(),
-          }, { onConflict: 'phone' })
-          .select()
-          .single();
-
-        const { data: orderData, error: orderError } = await (supabase as any)
-          .from('orders')
-          .insert({
-            customer_id: customerData?.id || null,
-            customer_name: savedCustomer.name,
-            customer_phone: savedCustomer.phone,
-            status: 'pending',
-            payment_method: savedCustomer.paymentMethod,
-            payment_status: 'unpaid',
-            total_amount: savedTotal,
-            delivery_type: 'delivery',
-            delivery_address: {
-              street: savedCustomer.street,
-              exteriorNumber: savedCustomer.exteriorNumber,
-              interiorNumber: savedCustomer.interiorNumber,
-              neighborhood: savedCustomer.neighborhood,
-              dwellingType: savedCustomer.dwellingType,
-              gatedCommunity: savedCustomer.gatedCommunity,
-              accessCode: savedCustomer.accessCode,
-              references: savedCustomer.references,
-            },
-          })
-          .select()
-          .single();
-
-        if (orderData && !orderError) {
-          const orderItemsPayload = savedItems.map(item => ({
-            order_id: orderData.id,
-            product_id: item.product.id,
-            product_name: item.product.name,
-            quantity: item.quantity,
-            unit_price: item.selectedSize?.price || item.product.price,
-            subtotal: item.subtotal,
-            selected_size: item.selectedSize?.name,
-            extras: item.selectedExtras,
-            notes: item.notes,
-          }));
-          await (supabase as any).from('order_items').insert(orderItemsPayload);
-        }
-      } catch (e) {
-        console.error('Background DB save error:', e);
-      }
-
-      try {
-        supabase.functions.invoke('send-order-email', {
-          body: {
-            items: savedItems.map(item => ({
-              quantity: item.quantity,
-              productName: item.product.name,
-              sizeName: item.selectedSize?.name,
-              extras: item.selectedExtras.map(e => e.name),
-              notes: item.notes,
-              subtotal: item.subtotal,
-            })),
-            total: savedTotal,
-            customer: savedCustomer,
-          },
-        });
-      } catch (e) {
-        console.error('Email notification failed:', e);
-      }
-    })();
   };
 
   if (!isOpen) return null;
