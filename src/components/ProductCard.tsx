@@ -193,7 +193,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder="Ej. Sin cebolla, sin cilantro, salsa aparte..."
+            placeholder="Ej. Sin repollo, sin salsa, extra jugo de tomate..."
             className="checkout-input text-sm min-h-[60px] resize-none"
             maxLength={200}
           />

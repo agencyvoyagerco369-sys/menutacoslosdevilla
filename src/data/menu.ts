@@ -66,7 +66,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'tacos-harina',
     name: 'Tacos de Harina',
-    description: 'Deliciosos tacos en tortilla de harina con carne asada a las brasas, cebollita y cilantro.',
+    description: 'Deliciosos tacos en tortilla de harina con carne asada a las brasas, repollo, jugo de tomate y salsa verde.',
     price: 30,
     image: tacosHarina,
     category: 'platillos',
@@ -75,7 +75,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'tacos-maiz',
     name: 'Tacos de Maíz',
-    description: 'Tacos tradicionales en tortilla de maíz con carne asada, cebolla y cilantro.',
+    description: 'Tacos tradicionales en tortilla de maíz con carne asada, repollo, jugo de tomate y salsa verde.',
     price: 25,
     image: tacosMaiz,
     category: 'platillos',
@@ -84,7 +84,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'taco-dorado',
     name: 'Taco Dorado',
-    description: 'Taco frito crujiente relleno de carne, acompañado de lechuga, crema y salsa.',
+    description: 'Taco frito crujiente relleno de carne, acompañado de lechuga, crema, repollo, jugo de tomate y salsa verde.',
     price: 25,
     image: tacoDorado,
     category: 'platillos',
@@ -93,7 +93,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'lorenzas-volcan',
     name: 'Lorenzas / Volcán',
-    description: 'Tortilla gruesa de maíz con queso fundido, carne asada y salsa. ¡Una explosión de sabor!',
+    description: 'Tortilla gruesa de maíz con queso fundido, carne asada, repollo, jugo de tomate y salsa verde. ¡Una explosión de sabor!',
     price: 35,
     image: lorenzasVolcan,
     category: 'platillos',
@@ -102,7 +102,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'quesadillas',
     name: 'Quesadillas',
-    description: 'Tortilla de harina con abundante queso fundido y carne asada. Doraditas y crujientes.',
+    description: 'Tortilla de harina con abundante queso fundido, carne asada, repollo, jugo de tomate y salsa verde. Doraditas y crujientes.',
     price: 35,
     image: quesadillas,
     category: 'platillos',
@@ -111,7 +111,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'chorreadas-gorditas',
     name: 'Chorreadas / Gorditas',
-    description: 'Gorditas de masa gruesa rellenas de carne asada, frijoles, queso y crema.',
+    description: 'Gorditas de masa gruesa rellenas de carne asada, frijoles, queso, crema, repollo, jugo de tomate y salsa verde.',
     price: 35,
     image: chorreadasGorditas,
     category: 'platillos',
@@ -120,7 +120,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'toritos',
     name: 'Toritos',
-    description: 'Chiles rellenos de queso y carne asada, capeados y doraditos. ¡Picositos y deliciosos!',
+    description: 'Chiles rellenos de queso y carne asada, capeados y doraditos, acompañados de repollo, jugo de tomate y salsa verde. ¡Picositos y deliciosos!',
     price: 35,
     image: toritos,
     category: 'platillos',
@@ -129,7 +129,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'gringas',
     name: 'Gringas',
-    description: 'Tortilla de harina con queso fundido, carne asada y piña asada. Combinación perfecta.',
+    description: 'Tortilla de harina con queso fundido, carne asada, piña asada, repollo, jugo de tomate y salsa verde. Combinación perfecta.',
     price: 40,
     image: gringas,
     category: 'platillos',
@@ -138,7 +138,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'taco-macho',
     name: 'Taco Macho',
-    description: 'Taco jumbo en tortilla de harina con generosa porción de carne asada, frijoles, queso y guacamole.',
+    description: 'Taco jumbo en tortilla de harina con generosa porción de carne asada, frijoles, queso, guacamole, repollo, jugo de tomate y salsa verde.',
     price: 50,
     image: tacoMacho,
     category: 'platillos',
@@ -147,7 +147,7 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'taco-tripa',
     name: 'Taco de Tripa',
-    description: 'Taco con tripa asada crujiente, cebolla, cilantro y limón. El clásico de la taquería.',
+    description: 'Taco con tripa asada crujiente, repollo, jugo de tomate, salsa verde y limón. El clásico de la taquería.',
     price: 30,
     image: tacoTripa,
     category: 'platillos',

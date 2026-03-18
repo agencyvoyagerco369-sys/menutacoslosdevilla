@@ -257,7 +257,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Ej. Sin cebolla, sin cilantro, salsa aparte..."
+                  placeholder="Ej. Sin repollo, sin salsa, extra jugo de tomate..."
                   className="w-full p-4 rounded-2xl bg-muted border-2 border-transparent focus:border-primary focus:outline-none resize-none text-sm"
                   rows={2}
                   maxLength={200}
