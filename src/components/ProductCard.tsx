@@ -21,6 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const basePrice = selectedSize ? selectedSize.price : product.price;
   const extrasTotal = product.extras.reduce((sum, e) => sum + e.price * (extraQuantities[e.id] || 0), 0);
   const totalPrice = (basePrice + extrasTotal) * quantity;
+  const isPromo = product.category === 'promociones';
 
   const selectedExtrasCount = Object.values(extraQuantities).reduce((sum, q) => sum + q, 0);
 
@@ -63,7 +64,7 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <article className="food-card bg-card">
+    <article className={`food-card ${isPromo ? 'ring-2 ring-red-400/30' : ''} bg-card`}>
       {/* Food Image - 60% height */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
@@ -74,18 +75,22 @@ export function ProductCard({ product }: ProductCardProps) {
         />
         <div className="absolute inset-0 food-card-gradient" />
 
-        {/* Promo Banner Style - Único cambio permitido */}
-        {product.category === 'promociones' && (
-          <div className="absolute top-3 left-3 z-10">
-            <div className="bg-gradient-to-r from-[#FF3B30] to-[#FF9500] text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-tighter">
-              <span className="text-sm">🔥</span>
+        {/* Full-width OFERTA banner */}
+        {isPromo && (
+          <div className="absolute top-0 left-0 right-0 z-10">
+            <div className="bg-gradient-to-r from-[#E31C13] to-[#FF8C00] text-white text-sm font-black py-2 text-center flex items-center justify-center gap-2 uppercase tracking-wide shadow-md">
+              <span className="text-base">🔥</span>
               OFERTA
             </div>
           </div>
         )}
         
         {/* Price Badge */}
-        <div className="absolute bottom-3 right-3 bg-highlight text-highlight-foreground px-3 py-1 rounded-full font-bold text-lg shadow-lg">
+        <div className={`absolute bottom-3 right-3 px-3 py-1 rounded-full font-bold text-lg shadow-lg ${
+          isPromo 
+            ? 'bg-red-600 text-white' 
+            : 'bg-highlight text-highlight-foreground'
+        }`}>
           ${basePrice}
         </div>
       </div>
