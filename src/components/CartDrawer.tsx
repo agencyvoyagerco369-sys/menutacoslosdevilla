@@ -466,12 +466,12 @@ function CartItemCard({ item, onUpdateQuantity, onRemove }: {
             <span>${item.product.price}</span>
           </div>
         )}
-        {item.selectedExtras.map((extra, idx) => (
+        {item.selectedExtras.filter(e => e.id !== 'frijoles-promo').map((extra, idx) => (
           <div key={`${extra.id}-${idx}`} className="flex justify-between text-muted-foreground">
             <span className="flex items-center gap-1">
               <Plus className="w-3 h-3" /> {extra.name}
             </span>
-            <span>{extra.price > 0 ? `+$${extra.price}` : 'Incluido'}</span>
+            <span>+${extra.price}</span>
           </div>
         ))}
         {item.notes && (

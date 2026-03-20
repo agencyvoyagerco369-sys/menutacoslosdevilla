@@ -15,10 +15,11 @@ export function generateWhatsAppMessage(
     const lines: string[] = [];
     lines.push(`*${item.quantity}x ${item.product.name}*`);
     if (item.selectedSize) lines.push(`   Tamaño: ${item.selectedSize.name}`);
-    if (item.selectedExtras.length > 0) {
-      lines.push(`   Extras: ${item.selectedExtras.map(e => e.name).join(', ')}`);
+    const paidExtras = item.selectedExtras.filter(e => e.id !== 'frijoles-promo');
+    if (paidExtras.length > 0) {
+      lines.push(`   Extras: ${paidExtras.map(e => e.name).join(', ')}`);
     }
-    if (item.notes) lines.push(`   Nota: ${item.notes}`);
+    if (item.notes) lines.push(`   ${item.notes}`);
     lines.push(`   💲 $${item.subtotal}`);
     return lines.join('\n');
   }).join('\n\n');
