@@ -64,7 +64,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const isPromo = product.category === 'promociones';
 
   return (
-    <article className={`food-card ${isPromo ? 'ring-2 ring-green-400/30' : ''} bg-card`}>
+    <article className={`food-card ${isPromo ? 'ring-2 ring-red-400/30' : ''} bg-card`}>
       {/* Food Image - 60% height */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
@@ -79,13 +79,13 @@ export function ProductCard({ product }: ProductCardProps) {
         {isPromo && (
           <>
             <div className="absolute top-3 left-3 z-10">
-              <div className="bg-green-600 text-white text-[11px] font-bold pl-1.5 pr-2.5 py-1 rounded-lg flex items-center gap-1 shadow-md">
+              <div className="bg-red-600 text-white text-[11px] font-bold pl-1.5 pr-2.5 py-1 rounded-lg flex items-center gap-1 shadow-md">
                 <Zap className="w-3.5 h-3.5 fill-yellow-300 text-yellow-300" />
                 Promo
               </div>
             </div>
             <div className="absolute top-3 right-3 z-10">
-              <div className="bg-black/70 backdrop-blur-sm text-green-400 text-[10px] font-bold px-2 py-1 rounded-lg">
+              <div className="bg-black/70 backdrop-blur-sm text-red-400 text-[10px] font-bold px-2 py-1 rounded-lg">
                 ⚡ Precio especial
               </div>
             </div>
@@ -95,7 +95,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Price Badge */}
         <div className={`absolute bottom-3 right-3 px-3 py-1 rounded-full font-bold text-lg shadow-lg ${
           isPromo 
-            ? 'bg-green-600 text-white' 
+            ? 'bg-red-600 text-white' 
             : 'bg-highlight text-highlight-foreground'
         }`}>
           ${basePrice}

@@ -40,13 +40,13 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
       onClick={() => onCustomize(product)}
       className={`flex gap-3 p-3 rounded-2xl cursor-pointer hover:shadow-md transition-all active:scale-[0.98] relative overflow-hidden ${
         isPromo 
-          ? 'bg-gradient-to-r from-green-50 to-card border border-green-200/60' 
+          ? 'bg-gradient-to-r from-red-50 to-card border border-red-200/60' 
           : 'bg-card'
       }`}
     >
       {/* Promo left accent bar */}
       {isPromo && (
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-green-500 to-emerald-600" />
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 to-rose-600" />
       )}
 
       {/* Image */}
@@ -60,7 +60,7 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
         {/* DiDi/Uber style promo badge */}
         {isPromo && (
           <div className="absolute top-1.5 left-1.5 z-10">
-            <div className="bg-green-600 text-white text-[10px] font-bold pl-1 pr-2 py-0.5 rounded-md flex items-center gap-0.5 shadow-sm">
+            <div className="bg-red-600 text-white text-[10px] font-bold pl-1 pr-2 py-0.5 rounded-md flex items-center gap-0.5 shadow-sm">
               <Zap className="w-3 h-3 fill-yellow-300 text-yellow-300" />
               Promo
             </div>
@@ -76,7 +76,7 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
               {product.name}
             </h3>
             {isPromo && (
-              <span className="shrink-0 bg-green-100 text-green-700 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wide">
+              <span className="shrink-0 bg-red-100 text-red-700 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wide">
                 AHORRA
               </span>
             )}
@@ -89,11 +89,11 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
         {/* Price */}
         <div className="flex items-center justify-between mt-2">
           <div className="flex items-baseline gap-1.5">
-            <span className={`font-bold text-base ${isPromo ? 'text-green-700' : 'text-foreground'}`}>
+            <span className={`font-bold text-base ${isPromo ? 'text-red-700' : 'text-foreground'}`}>
               ${displayPrice}
             </span>
             {isPromo && (
-              <span className="text-[10px] text-green-600 font-semibold bg-green-100 px-1.5 py-0.5 rounded">
+              <span className="text-[10px] text-red-600 font-semibold bg-red-100 px-1.5 py-0.5 rounded">
                 Precio especial
               </span>
             )}
@@ -107,7 +107,7 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
               isAdded 
                 ? 'bg-green-500 text-white' 
                 : isPromo 
-                  ? 'bg-green-600 text-white hover:scale-110 active:scale-95'
+                  ? 'bg-red-600 text-white hover:scale-110 active:scale-95'
                   : 'bg-primary text-primary-foreground hover:scale-110 active:scale-95'
             }`}
           >
