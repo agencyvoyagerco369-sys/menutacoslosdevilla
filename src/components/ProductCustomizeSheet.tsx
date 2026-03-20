@@ -90,20 +90,39 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
     let finalExtras = getSelectedExtrasArray();
 
     if (product.category === 'promociones') {
-      // Agregar frijoles charros por defecto
-      const frijolesCount = product.id === 'promo-taquera' ? 1 : 2;
+      const isPromoTaquera = product.id === 'promo-taquera';
+      const frijolesCount = isPromoTaquera ? 1 : 2;
+      const promoDrinkSize = isPromoTaquera ? '1/2 Litro' : '1 Litro';
+
+      // Agregar frijoles charros incluidos como extras (precio $0)
       for (let i = 0; i < frijolesCount; i++) {
         finalExtras.push({ id: 'frijoles-promo', name: 'Frijoles Charros (Incluidos)', price: 0 });
       }
 
-      const promoDrinkSize = product.id === 'promo-taquera' ? '1/2 Litro' : '1 Litro';
-      const drinkNote = `🥤 Bebida elegida: Agua de ${selectedDrinkFlavor} (${promoDrinkSize})`;
-      finalNotes = finalNotes ? `${drinkNote}\n${finalNotes}` : drinkNote;
-    }
-    
-    if (product.id === 'promo-taquera') {
-      const tacoBreakdown = `🌮 Tacos elegidos: ${promoTacos.harina} de Harina, ${promoTacos.maiz} de Maíz`;
-      finalNotes = finalNotes ? `${tacoBreakdown}\n${finalNotes}` : tacoBreakdown;
+      // Construir resumen completo de la promo
+      const promoDetails: string[] = [];
+      promoDetails.push('📋 ── Contenido de la Promo ──');
+
+      if (isPromoTaquera) {
+        promoDetails.push(`🌮 Tacos: ${promoTacos.harina} de Harina, ${promoTacos.maiz} de Maíz`);
+        promoDetails.push(`🫘 1 Porción de Frijoles Charros`);
+        promoDetails.push(`🥤 Agua de ${selectedDrinkFlavor} (${promoDrinkSize})`);
+      } else if (product.id === 'promo-chorreada') {
+        promoDetails.push(`🫓 2 Chorreadas / Gorditas`);
+        promoDetails.push(`🫘 2 Porciones de Frijoles Charros`);
+        promoDetails.push(`🥤 Agua de ${selectedDrinkFlavor} (${promoDrinkSize})`);
+      } else if (product.id === 'promo-torito') {
+        promoDetails.push(`🌶️ 2 Toritos`);
+        promoDetails.push(`🫘 2 Porciones de Frijoles Charros`);
+        promoDetails.push(`🥤 Agua de ${selectedDrinkFlavor} (${promoDrinkSize})`);
+      } else if (product.id === 'promo-quesadilla') {
+        promoDetails.push(`🧀 2 Quesadillas`);
+        promoDetails.push(`🫘 2 Porciones de Frijoles Charros`);
+        promoDetails.push(`🥤 Agua de ${selectedDrinkFlavor} (${promoDrinkSize})`);
+      }
+
+      const promoSummary = promoDetails.join('\n');
+      finalNotes = finalNotes ? `${promoSummary}\n${finalNotes}` : promoSummary;
     }
 
     addItem(product, quantity, selectedSize, finalExtras, finalNotes);
