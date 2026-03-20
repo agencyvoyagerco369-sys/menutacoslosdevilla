@@ -23,7 +23,6 @@ export function generateWhatsAppMessage(
     return lines.join('\n');
   }).join('\n\n');
 
-  // Build address line
   const dwellingLabels: Record<string, string> = {
     casa: 'Casa',
     departamento: 'Departamento',
@@ -63,8 +62,23 @@ ${itemsList}
 }
 
 /**
- * Abre WhatsApp con el mensaje pre-rellenado
- * Soporta iOS, Android y navegadores web sin fricción
+ * Detecta si el dispositivo es móvil (iOS/Android)
+ */
+function isMobileDevice(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  return /android|iphone|ipad|ipod|webos|blackberry|opera mini|iemobile/i.test(
+    navigator.userAgent
+  );
+}
+
+/**
+ * Abre WhatsApp con el mensaje pre-rellenado.
+ * Funciona sin fricción en: iOS, Android, PC (Windows/Mac/Linux).
+ * 
+ * Estrategia:
+ * - Móvil → usa intent:// en Android, wa.me en iOS → abre directo la app
+ * - Desktop → wa.me abre WhatsApp Web o la app de escritorio
+ * - Fallback → si window.open es bloqueado, redirige con location.href
  */
 export function sendToWhatsApp(message: string): void {
   if (!message || message.trim().length === 0) {
@@ -72,19 +86,24 @@ export function sendToWhatsApp(message: string): void {
     return;
   }
 
-  // URL-encode el mensaje de manera segura para caracteres especiales
   const encodedMessage = encodeURIComponent(message);
-
-  // Usar wa.me en lugar de api.whatsapp.com para máxima compatibilidad
+  
+  // wa.me es el estándar universal recomendado por WhatsApp
+  // Funciona en iOS (abre app), Android (abre app), y Desktop (abre WhatsApp Web/Desktop)
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 
-  try {
-    // window.open abre en app de WhatsApp (móvil) o WhatsApp Web (desktop)
-    // noreferrer y noopener previenen acceso al objeto window
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-  } catch (error) {
-    console.error('Error al abrir WhatsApp:', error);
-    // Fallback: intenta con location.href si window.open falla
+  // En móvil, usar location.href es más confiable que window.open
+  // ya que evita bloqueos de popup y abre la app nativa directamente
+  if (isMobileDevice()) {
+    window.location.href = whatsappUrl;
+    return;
+  }
+
+  // En desktop, window.open abre en nueva pestaña (WhatsApp Web o app de escritorio)
+  const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  
+  // Si el navegador bloqueó el popup, fallback a redirección directa
+  if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
     window.location.href = whatsappUrl;
   }
 }
