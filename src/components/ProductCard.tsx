@@ -154,7 +154,7 @@ export function ProductCard({ product }: ProductCardProps) {
               className="w-full flex items-center justify-between p-3 bg-muted/50 hover:bg-muted transition-colors"
             >
               <span className="text-sm font-medium text-foreground">
-                🍽️ Guarniciones {selectedExtrasCount > 0 && `(${selectedExtrasCount})`}
+                🍽️ Extras {selectedExtrasCount > 0 && `(${selectedExtrasCount})`}
               </span>
               {showExtras ? (
                 <ChevronUp className="w-4 h-4 text-muted-foreground" />

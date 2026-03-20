@@ -367,7 +367,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
               <div className="px-5 py-4">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-semibold text-foreground text-base">
-                    🍽️ Guarniciones
+                    🍽️ Extras
                   </h3>
                   <div className="flex items-center gap-2">
                     {extrasTotal > 0 && (
@@ -475,7 +475,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
                     Agregar ${totalPrice}
                     {extrasTotal > 0 && (
                       <span className="text-primary-foreground/70 text-sm ml-1">
-                        (incluye ${extrasTotal} en guarniciones)
+                        (incluye ${extrasTotal} en extras)
                       </span>
                     )}
                   </span>
