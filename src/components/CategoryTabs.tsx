@@ -17,7 +17,7 @@ export function CategoryTabs({ activeCategory, onCategoryChange }: CategoryTabsP
     <nav className="sticky top-0 z-40 bg-card/80 backdrop-blur-xl border-b border-border/50">
       <div className="px-3 py-3">
         <div
-          className="flex gap-2 overflow-x-auto"
+          className="flex gap-3 overflow-x-auto justify-center"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {CATEGORIES.map((category) => {
