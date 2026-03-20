@@ -1,33 +1,29 @@
-import { useEffect, useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 
-// You can swap these generic placeholder images with your actual promo flyers if you want
-const PROMO_BANNERS = [
+// Carrusel enfocado en destacar la calidad del menú cuando no hay descuentos explícitos
+const HIGHLIGHT_BANNERS = [
   {
     id: 1,
     image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&q=80&w=1000',
-    title: '¡Martes de Tacos!',
-    subtitle: '3x2 en todos los de pastor',
+    title: 'Nuestros Auténticos Tacos',
+    subtitle: 'La especialidad de la casa a las brasas',
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&q=80&w=1000',
-    title: 'Combo Familiar',
-    subtitle: 'Ahorra hasta $100 pesos',
+    image: 'https://images.unsplash.com/photo-1512805147242-c3e794fc1bfa?auto=format&fit=crop&q=80&w=1000',
+    title: 'Gringas y Quesadillas',
+    subtitle: 'Con abundante queso fundido',
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?auto=format&fit=crop&q=80&w=1000',
-    title: 'Envío Gratis',
-    subtitle: 'En pedidos mayores a $300',
+    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=1000',
+    title: 'Paquetes Completos',
+    subtitle: 'Combos taqueros con bebida incluida',
   }
 ];
 
 export function PromoCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  // Auto-scroll logic could be added here if desired, 
-  // but swipeable is usually better for mobile UX.
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
@@ -41,7 +37,7 @@ export function PromoCarousel() {
     <section className="py-4 bg-background">
       <div className="flex items-center justify-between px-4 mb-3">
         <h2 className="font-display font-bold text-lg text-foreground">
-          🔥 Ofertas para ti
+          ⭐ Especialidades de la Casa
         </h2>
       </div>
 
@@ -50,23 +46,24 @@ export function PromoCarousel() {
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         onScroll={handleScroll}
       >
-        {PROMO_BANNERS.map((promo) => (
+        {HIGHLIGHT_BANNERS.map((banner) => (
           <div 
-            key={promo.id} 
+            key={banner.id} 
             className="relative flex-none w-[85%] md:w-[60%] aspect-[21/9] rounded-2xl overflow-hidden shadow-card snap-center transition-transform active:scale-[0.98]"
           >
             <img 
-              src={promo.image} 
-              alt={promo.title}
+              src={banner.image} 
+              alt={banner.title}
               className="w-full h-full object-cover"
             />
+            {/* Dark gradient overlay so the white text reads clearly */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-3 left-3 right-3">
               <h3 className="text-white font-bold text-[15px] leading-tight drop-shadow-md">
-                {promo.title}
+                {banner.title}
               </h3>
-              <p className="text-white/90 text-[11px] font-medium mt-0.5 drop-shadow-md">
-                {promo.subtitle}
+              <p className="text-white/90 text-[11px] font-medium mt-0.5 drop-shadow-md text-balance">
+                {banner.subtitle}
               </p>
             </div>
           </div>
@@ -75,7 +72,7 @@ export function PromoCarousel() {
 
       {/* Dots indicator */}
       <div className="flex justify-center gap-1.5 mt-2">
-        {PROMO_BANNERS.map((_, idx) => (
+        {HIGHLIGHT_BANNERS.map((_, idx) => (
           <div 
             key={idx} 
             className={`h-1.5 rounded-full transition-all duration-300 ${
