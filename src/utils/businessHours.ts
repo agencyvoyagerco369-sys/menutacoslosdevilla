@@ -55,12 +55,12 @@ export function getBusinessStatus(): { isOpen: boolean; message: string } {
   if (isOpen) {
     return {
       isOpen: true,
-      message: 'Abierto ahora • ' + BUSINESS_INFO.schedule,
+      message: '¡Estamos Abiertos! Listos para tu pedido',
     };
   }
   
   return {
     isOpen: false,
-    message: 'Cerrado • ' + BUSINESS_INFO.schedule,
+    message: 'Cerrado por el momento • Revisa nuestro horario',
   };
 }
