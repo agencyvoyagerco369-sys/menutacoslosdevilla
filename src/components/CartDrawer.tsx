@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Minus, Plus, Trash2, Send, ArrowRight, ArrowLeft, MapPin, User, Phone, Home, CreditCard, ChevronDown } from 'lucide-react';
+import { X, Minus, Plus, Trash2, Send, ArrowRight, ArrowLeft, MapPin, User, Phone, Home, CreditCard, ChevronDown, Lock } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { CartItem as CartItemType, CustomerInfo, DwellingType } from '@/types/menu';
 import { generateWhatsAppMessage, sendToWhatsApp } from '@/utils/whatsapp';
@@ -10,6 +10,9 @@ interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+// 🔒 CANDADO DE PEDIDOS — Cambiar a true para activar el botón de WhatsApp
+const ORDERS_ENABLED = false;
 
 const INITIAL_CUSTOMER: CustomerInfo = {
   name: '',
@@ -417,13 +420,28 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <span className="text-sm text-muted-foreground font-medium">Total del pedido</span>
                 <span className="font-display font-extrabold text-xl text-primary">${total}</span>
               </div>
-              <button
-                onClick={handleSendOrder}
-                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 text-base transition-colors active:scale-[0.98]"
-              >
-                <Send className="w-4 h-4" />
-                Enviar pedido por WhatsApp
-              </button>
+              {ORDERS_ENABLED ? (
+                <button
+                  onClick={handleSendOrder}
+                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 text-base transition-colors active:scale-[0.98]"
+                >
+                  <Send className="w-4 h-4" />
+                  Enviar pedido por WhatsApp
+                </button>
+              ) : (
+                <div className="space-y-2">
+                  <button
+                    disabled
+                    className="w-full bg-muted text-muted-foreground font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 text-base cursor-not-allowed opacity-70"
+                  >
+                    <Lock className="w-4 h-4" />
+                    Pedidos no disponibles
+                  </button>
+                  <p className="text-center text-xs text-muted-foreground">
+                    🔒 Los pedidos por WhatsApp están temporalmente deshabilitados. ¡Vuelve pronto!
+                  </p>
+                </div>
+              )}
             </footer>
           </>
         )}
