@@ -87,7 +87,15 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
 
   const handleAddToCart = () => {
     let finalNotes = notes;
+    let finalExtras = getSelectedExtrasArray();
+
     if (product.category === 'promociones') {
+      // Agregar frijoles charros por defecto
+      const frijolesCount = product.id === 'promo-taquera' ? 1 : 2;
+      for (let i = 0; i < frijolesCount; i++) {
+        finalExtras.push({ id: 'frijoles-promo', name: 'Frijoles Charros (Incluidos)', price: 0 });
+      }
+
       const promoDrinkSize = product.id === 'promo-taquera' ? '1/2 Litro' : '1 Litro';
       const drinkNote = `🥤 Bebida elegida: Agua de ${selectedDrinkFlavor} (${promoDrinkSize})`;
       finalNotes = finalNotes ? `${drinkNote}\n${finalNotes}` : drinkNote;
@@ -98,7 +106,7 @@ export function ProductCustomizeSheet({ product, isOpen, onClose, onGoToCart }: 
       finalNotes = finalNotes ? `${tacoBreakdown}\n${finalNotes}` : tacoBreakdown;
     }
 
-    addItem(product, quantity, selectedSize, getSelectedExtrasArray(), finalNotes);
+    addItem(product, quantity, selectedSize, finalExtras, finalNotes);
     setIsAdded(true);
 
     if ('vibrate' in navigator) {
