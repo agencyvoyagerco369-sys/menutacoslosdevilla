@@ -73,6 +73,19 @@ export function ProductCard({ product }: ProductCardProps) {
           loading="lazy"
         />
         <div className="absolute inset-0 food-card-gradient" />
+
+        {/* Promo Badge */}
+        {product.category === 'promociones' && (
+          <div className="absolute top-3 right-3 z-10">
+            <div className="relative">
+              <div className="absolute inset-0 bg-red-500 rounded-xl blur-md opacity-40 animate-pulse" />
+              <div className="relative bg-gradient-to-r from-red-600 to-orange-500 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5 tracking-wide">
+                <span className="text-sm">🔥</span>
+                OFERTA
+              </div>
+            </div>
+          </div>
+        )}
         
         {/* Price Badge */}
         <div className="absolute bottom-3 right-3 bg-highlight text-highlight-foreground px-3 py-1 rounded-full font-bold text-lg shadow-lg">

@@ -47,6 +47,14 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
           className="w-full h-full object-cover"
           loading="lazy"
         />
+        {/* Promo Badge */}
+        {product.category === 'promociones' && (
+          <div className="absolute top-0 left-0 right-0 z-10">
+            <div className="bg-gradient-to-r from-red-600 to-orange-500 text-white text-[9px] font-black py-0.5 text-center tracking-wider flex items-center justify-center gap-1">
+              <span>🔥</span> OFERTA
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Content */}
