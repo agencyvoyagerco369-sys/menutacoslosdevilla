@@ -13,7 +13,6 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
   const [isAdded, setIsAdded] = useState(false);
 
   const displayPrice = product.sizes?.[0]?.price ?? product.price;
-  const isPromo = product.category === 'promociones';
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -38,7 +37,7 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
   return (
     <article 
       onClick={() => onCustomize(product)}
-      className="flex gap-3 p-3 bg-card rounded-2xl cursor-pointer hover:shadow-md transition-all active:scale-[0.98] relative overflow-hidden"
+      className="flex gap-3 p-3 bg-card rounded-2xl cursor-pointer hover:shadow-md transition-all active:scale-[0.98]"
     >
       {/* Image */}
       <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
@@ -49,11 +48,11 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
           loading="lazy"
         />
         
-        {/* NEW Promo Banner Style */}
-        {isPromo && (
+        {/* Banner OFERTA - Único cambio permitido */}
+        {product.category === 'promociones' && (
           <div className="absolute top-1 left-1 z-10">
-            <div className="bg-gradient-to-r from-[#E31C13] to-[#FF8C00] text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1 uppercase tracking-tight">
-              <span>🔥</span>
+            <div className="bg-gradient-to-r from-[#FF3B30] to-[#FF9500] text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-lg flex items-center gap-1 uppercase tracking-tight">
+              <span className="text-xs">🔥</span>
               OFERTA
             </div>
           </div>

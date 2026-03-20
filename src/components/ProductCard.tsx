@@ -61,7 +61,6 @@ export function ProductCard({ product }: ProductCardProps) {
       setShowExtras(false);
     }, 1500);
   };
-  const isPromo = product.category === 'promociones';
 
   return (
     <article className="food-card bg-card">
@@ -75,11 +74,11 @@ export function ProductCard({ product }: ProductCardProps) {
         />
         <div className="absolute inset-0 food-card-gradient" />
 
-        {/* NEW Promo Banner Style */}
-        {isPromo && (
+        {/* Promo Banner Style - Único cambio permitido */}
+        {product.category === 'promociones' && (
           <div className="absolute top-3 left-3 z-10">
-            <div className="bg-gradient-to-r from-[#E31C13] to-[#FF8C00] text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-tighter">
-              <span>🔥</span>
+            <div className="bg-gradient-to-r from-[#FF3B30] to-[#FF9500] text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-tighter">
+              <span className="text-sm">🔥</span>
               OFERTA
             </div>
           </div>
