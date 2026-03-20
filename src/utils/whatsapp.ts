@@ -39,9 +39,15 @@ export function generateWhatsAppMessage(
 
   const referencesLine = customer.references ? `\n👀 *Ref:* ${customer.references}` : '';
 
-  const paymentInfo = customer.paymentMethod === 'efectivo' && customer.cashAmount
-    ? `\n💵 Pagaré con: $${customer.cashAmount}`
-    : '';
+  let paymentInfo = '';
+  if (customer.paymentMethod === 'efectivo' && customer.cashAmount && Number(customer.cashAmount) > 0) {
+    const cashNum = Number(customer.cashAmount);
+    const change = cashNum - total;
+    paymentInfo = `\n💵 Pagaré con: $${customer.cashAmount}`;
+    if (change > 0) {
+      paymentInfo += `\n💰 *Cambio:* $${change}`;
+    }
+  }
 
   const message = `🌮 *NUEVO PEDIDO — LOS DE VILLA*
 ━━━━━━━━━━━━━━━━━

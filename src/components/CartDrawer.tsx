@@ -52,7 +52,6 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     if (!customer.exteriorNumber.trim()) newErrors.exteriorNumber = 'El número exterior es obligatorio';
     if (!customer.neighborhood.trim()) newErrors.neighborhood = 'La colonia es obligatoria';
     if (customer.gatedCommunity && !customer.accessCode.trim()) newErrors.accessCode = 'Indica cómo acceder';
-    if (customer.paymentMethod === 'efectivo' && !customer.cashAmount?.trim()) newErrors.cashAmount = 'Indica con cuánto pagarás';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -394,15 +393,14 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                 {customer.paymentMethod === 'efectivo' && (
                   <div>
-                    <label className="text-sm font-semibold text-foreground mb-1.5 block">💵 ¿Con cuánto pagas? *</label>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">💵 ¿Con cuánto pagas? <span className="text-xs text-muted-foreground font-normal">(Opcional)</span></label>
                     <input
                       value={customer.cashAmount || ''}
                       onChange={(e) => updateCustomer('cashAmount', e.target.value)}
                       placeholder="Ej. 200"
                       type="number"
-                      className={`w-full px-4 py-3 rounded-xl bg-muted border-2 text-sm focus:outline-none transition-colors ${errors.cashAmount ? 'border-destructive' : 'border-transparent focus:border-primary'}`}
+                      className="w-full px-4 py-3 rounded-xl bg-muted border-2 border-transparent text-sm focus:outline-none focus:border-primary transition-colors"
                     />
-                    {errors.cashAmount && <p className="text-destructive text-xs mt-1">{errors.cashAmount}</p>}
                     {customer.cashAmount && Number(customer.cashAmount) > 0 && Number(customer.cashAmount) >= total && (
                       <p className="text-xs text-muted-foreground mt-1">
                         Tu cambio: <span className="font-bold text-primary">${Number(customer.cashAmount) - total}</span>
