@@ -19,40 +19,55 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
 
   return (
     <header className="bg-card">
-      {/* Status Bar */}
-      <div className={`px-4 py-2.5 ${isOpen ? 'bg-secondary' : 'bg-destructive'}`}>
-        <div className="flex items-center justify-center gap-2 text-white text-sm font-semibold">
+      {/* Status Bar - Keeping it as a global sticky/thin bar at the very top is best practice */}
+      <div className={`px-4 py-2 ${isOpen ? 'bg-secondary' : 'bg-destructive'}`}>
+        <div className="flex items-center justify-center gap-2 text-white text-[13px] font-semibold">
           <div className={`w-2 h-2 rounded-full ${isOpen ? 'bg-white animate-pulse' : 'bg-white/80'}`} />
           <span>{message}</span>
         </div>
       </div>
 
-      {/* Main Header */}
-      <div className="px-4 py-5">
-        {/* Logo & Info */}
-        <div className="flex items-center gap-4 mb-5">
-          <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-elevated flex-shrink-0">
+      {/* Cover Image Background (Hero) */}
+      <div className="relative h-32 sm:h-40 w-full overflow-hidden">
+        {/* Usando una imagen muy apetitosa de carne asada estilo parrilla como fondo */}
+        <img 
+          src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&q=80&w=1000" 
+          alt="Parrilla Taquería" 
+          className="w-full h-full object-cover"
+        />
+        {/* Gradiente oscuro sutil para darle elegancia */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      </div>
+
+      {/* Main Header Content */}
+      <div className="px-4 pb-5 relative">
+        {/* Floating Logo */}
+        <div className="-mt-12 mb-3 relative z-10">
+          <div className="w-24 h-24 rounded-full border-4 border-background overflow-hidden shadow-elevated bg-card">
             <img
               src={logo}
-              alt="Taquería Los de Villa - Carne Asada y Tripa"
+              alt="Taquería Los de Villa - Logo"
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex-1 min-w-0">
-            <h1 className="font-display font-bold text-base text-foreground leading-tight">
-              Carne Asada y Tripa
-            </h1>
-            <h2 className="font-display font-bold text-lg text-primary">
-              "Los de Villa"
-            </h2>
-            <div className="flex items-center gap-2 mt-1.5">
-              <span className="inline-flex items-center gap-1 text-xs font-semibold bg-highlight/20 text-highlight-foreground px-2 py-0.5 rounded-full">
-                ⭐ 4.9
-              </span>
-              <span className="text-xs text-muted-foreground">
-                Cd. Obregón, Son.
-              </span>
-            </div>
+        </div>
+
+        {/* Title & Info (Hierarchy fixed: Brand big, subtitle small) */}
+        <div className="mb-5">
+          <h1 className="font-display font-black text-[26px] text-foreground leading-tight tracking-tight">
+            Taquería Los de Villa
+          </h1>
+          <h2 className="font-display font-bold text-sm text-primary mt-1 uppercase tracking-wider">
+            Carne Asada y Tripa
+          </h2>
+          
+          <div className="flex items-center gap-2 mt-2.5">
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-highlight/20 text-highlight-foreground px-2 py-1 rounded-full">
+              ⭐ 4.9 (200+ calif.)
+            </span>
+            <span className="text-[12px] font-medium text-muted-foreground flex items-center gap-1">
+              <MapPin className="w-3 h-3" /> Cd. Obregón, Son.
+            </span>
           </div>
         </div>
 
