@@ -17,6 +17,8 @@ export default defineConfig(({ mode }) => ({
         react(),
         mode === "development" && componentTagger(),
         VitePWA({
+            // Only register the SW in production builds — prevents caching issues in Lovable editor
+            devOptions: { enabled: false },
             registerType: "autoUpdate",
             includeAssets: ["favicon.ico", "robots.txt"],
             manifest: {
@@ -49,13 +51,32 @@ export default defineConfig(({ mode }) => ({
                 ],
             },
             workbox: {
+                // Force the new SW to take over immediately
                 skipWaiting: true,
                 clientsClaim: true,
+                // Use NetworkFirst for navigations so fresh HTML is always served
+                navigateFallback: "index.html",
+                navigateFallbackDenylist: [/^\/admin/],
+                // Don't precache images (they change rarely and cause cache bloat)
                 maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-                globPatterns: ["**/*.{js,css,html,ico,svg}"],
+                globPatterns: ["**/*.{js,css,html,ico,svg,woff,woff2}"],
+                // Runtime caching — NetworkFirst for JS/CSS so updates appear fast
                 runtimeCaching: [
                     {
-                        urlPattern: /\.(?:png|jpg|jpeg|webp)$/i,
+                        // JS and CSS — always check network first, fall back to cache
+                        urlPattern: /\.(?:js|css)$/i,
+                        handler: "NetworkFirst",
+                        options: {
+                            cacheName: "static-assets",
+                            expiration: {
+                                maxEntries: 60,
+                                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+                            },
+                        },
+                    },
+                    {
+                        // Images — serve cached, revalidate in background
+                        urlPattern: /\.(?:png|jpg|jpeg|webp|gif|svg)$/i,
                         handler: "StaleWhileRevalidate",
                         options: {
                             cacheName: "images-cache",
@@ -72,7 +93,7 @@ export default defineConfig(({ mode }) => ({
                             cacheName: "google-fonts-cache",
                             expiration: {
                                 maxEntries: 10,
-                                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+                                maxAgeSeconds: 60 * 60 * 24 * 365,
                             },
                             cacheableResponse: {
                                 statuses: [0, 200],
@@ -86,7 +107,7 @@ export default defineConfig(({ mode }) => ({
                             cacheName: "gstatic-fonts-cache",
                             expiration: {
                                 maxEntries: 10,
-                                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+                                maxAgeSeconds: 60 * 60 * 24 * 365,
                             },
                             cacheableResponse: {
                                 statuses: [0, 200],

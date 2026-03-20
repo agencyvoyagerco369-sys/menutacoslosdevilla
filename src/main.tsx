@@ -3,19 +3,19 @@ import App from "./App.tsx";
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import "./index.css";
 
-// Clean old Service Worker caches in the background (non-blocking)
+// ─── SW Update Listener ───
+// When a new Service Worker is detected, it will automatically activate
+// and we reload the page once so the user always sees the latest version.
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.getRegistrations().then((registrations) => {
-    registrations.forEach((reg) => reg.unregister());
-  });
-}
-if ("caches" in window) {
-  caches.keys().then((names) => {
-    names.forEach((name) => caches.delete(name));
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    // Only reload if the page is already fully loaded (prevents loops)
+    if (document.readyState === "complete") {
+      window.location.reload();
+    }
   });
 }
 
-// Always render the app immediately
+// ─── Always render immediately ───
 createRoot(document.getElementById("root")!).render(
   <AppErrorBoundary>
     <App />
