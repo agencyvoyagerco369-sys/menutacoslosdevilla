@@ -1,0 +1,89 @@
+import { useEffect, useState } from 'react';
+import { ChevronRight } from 'lucide-react';
+
+// You can swap these generic placeholder images with your actual promo flyers if you want
+const PROMO_BANNERS = [
+  {
+    id: 1,
+    image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&q=80&w=1000',
+    title: '¡Martes de Tacos!',
+    subtitle: '3x2 en todos los de pastor',
+  },
+  {
+    id: 2,
+    image: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&q=80&w=1000',
+    title: 'Combo Familiar',
+    subtitle: 'Ahorra hasta $100 pesos',
+  },
+  {
+    id: 3,
+    image: 'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?auto=format&fit=crop&q=80&w=1000',
+    title: 'Envío Gratis',
+    subtitle: 'En pedidos mayores a $300',
+  }
+];
+
+export function PromoCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Auto-scroll logic could be added here if desired, 
+  // but swipeable is usually better for mobile UX.
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    const scrollPosition = container.scrollLeft;
+    const itemWidth = container.offsetWidth;
+    const newIndex = Math.round(scrollPosition / itemWidth);
+    setActiveIndex(newIndex);
+  };
+
+  return (
+    <section className="py-4 bg-background">
+      <div className="flex items-center justify-between px-4 mb-3">
+        <h2 className="font-display font-bold text-lg text-foreground">
+          🔥 Ofertas para ti
+        </h2>
+      </div>
+
+      <div 
+        className="flex overflow-x-auto gap-4 px-4 pb-2 snap-x snap-mandatory"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        onScroll={handleScroll}
+      >
+        {PROMO_BANNERS.map((promo) => (
+          <div 
+            key={promo.id} 
+            className="relative flex-none w-[85%] md:w-[60%] aspect-[21/9] rounded-2xl overflow-hidden shadow-card snap-center transition-transform active:scale-[0.98]"
+          >
+            <img 
+              src={promo.image} 
+              alt={promo.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-3 left-3 right-3">
+              <h3 className="text-white font-bold text-[15px] leading-tight drop-shadow-md">
+                {promo.title}
+              </h3>
+              <p className="text-white/90 text-[11px] font-medium mt-0.5 drop-shadow-md">
+                {promo.subtitle}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Dots indicator */}
+      <div className="flex justify-center gap-1.5 mt-2">
+        {PROMO_BANNERS.map((_, idx) => (
+          <div 
+            key={idx} 
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              activeIndex === idx ? 'w-4 bg-primary' : 'w-1.5 bg-muted-foreground/30'
+            }`} 
+          />
+        ))}
+      </div>
+    </section>
+  );
+}

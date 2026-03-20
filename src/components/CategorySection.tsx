@@ -15,7 +15,7 @@ export function CategorySection({ categoryId, products, onCustomize }: CategoryS
   if (!category || categoryProducts.length === 0) return null;
 
   return (
-    <section className="px-4 py-4">
+    <section id={`category-${categoryId}`} className="px-4 py-4 pt-20 -mt-16">
       {/* Category Header */}
       <div className="mb-4">
         <h2 className="font-display font-bold text-xl text-foreground flex items-center gap-2">
