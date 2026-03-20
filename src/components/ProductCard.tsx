@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Product, Extra, SizeOption } from '@/types/menu';
 import { useCart } from '@/contexts/CartContext';
-import { Minus, Plus, ChevronDown, ChevronUp, Check, Zap } from 'lucide-react';
+import { Minus, Plus, ChevronDown, ChevronUp, Check, Flame } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -79,14 +79,14 @@ export function ProductCard({ product }: ProductCardProps) {
         {isPromo && (
           <>
             <div className="absolute top-3 left-3 z-10">
-              <div className="bg-red-600 text-white text-[11px] font-bold pl-1.5 pr-2.5 py-1 rounded-lg flex items-center gap-1 shadow-md">
-                <Zap className="w-3.5 h-3.5 fill-yellow-300 text-yellow-300" />
-                Promo
+              <div className="bg-red-600/90 text-white text-[11px] font-bold pl-2 pr-3 py-1 rounded-lg flex items-center gap-1.5 shadow-md backdrop-blur-[2px]">
+                <Flame className="w-3.5 h-3.5" />
+                Oferta
               </div>
             </div>
             <div className="absolute top-3 right-3 z-10">
-              <div className="bg-black/70 backdrop-blur-sm text-red-400 text-[10px] font-bold px-2 py-1 rounded-lg">
-                ⚡ Precio especial
+              <div className="bg-black/70 backdrop-blur-sm text-red-400 text-[10px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1">
+                <span>🔥</span> Precio especial
               </div>
             </div>
           </>

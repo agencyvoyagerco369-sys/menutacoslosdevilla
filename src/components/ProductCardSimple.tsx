@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Product, Extra, SizeOption } from '@/types/menu';
 import { useCart } from '@/contexts/CartContext';
-import { Plus, Check, Zap } from 'lucide-react';
+import { Plus, Check, Flame } from 'lucide-react';
 
 interface ProductCardSimpleProps {
   product: Product;
@@ -60,9 +60,9 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
         {/* DiDi/Uber style promo badge */}
         {isPromo && (
           <div className="absolute top-1.5 left-1.5 z-10">
-            <div className="bg-red-600 text-white text-[10px] font-bold pl-1 pr-2 py-0.5 rounded-md flex items-center gap-0.5 shadow-sm">
-              <Zap className="w-3 h-3 fill-yellow-300 text-yellow-300" />
-              Promo
+            <div className="bg-red-600/90 text-white text-[10px] font-bold pl-1.5 pr-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-sm backdrop-blur-[2px]">
+              <Flame className="w-3 h-3" />
+              Oferta
             </div>
           </div>
         )}
