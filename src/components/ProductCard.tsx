@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Product, Extra, SizeOption } from '@/types/menu';
 import { useCart } from '@/contexts/CartContext';
-import { Minus, Plus, ChevronDown, ChevronUp, Check, Flame } from 'lucide-react';
+import { Minus, Plus, ChevronDown, ChevronUp, Check } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -64,7 +64,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const isPromo = product.category === 'promociones';
 
   return (
-    <article className={`food-card ${isPromo ? 'ring-2 ring-red-400/30' : ''} bg-card`}>
+    <article className="food-card bg-card">
       {/* Food Image - 60% height */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
@@ -75,29 +75,18 @@ export function ProductCard({ product }: ProductCardProps) {
         />
         <div className="absolute inset-0 food-card-gradient" />
 
-        {/* DiDi/Uber style promo badge */}
+        {/* NEW Promo Banner Style */}
         {isPromo && (
-          <>
-            <div className="absolute top-3 left-3 z-10">
-              <div className="bg-red-600/90 text-white text-[11px] font-bold pl-2 pr-3 py-1 rounded-lg flex items-center gap-1.5 shadow-md backdrop-blur-[2px]">
-                <Flame className="w-3.5 h-3.5" />
-                Oferta
-              </div>
+          <div className="absolute top-3 left-3 z-10">
+            <div className="bg-gradient-to-r from-[#E31C13] to-[#FF8C00] text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-tighter">
+              <span>🔥</span>
+              OFERTA
             </div>
-            <div className="absolute top-3 right-3 z-10">
-              <div className="bg-black/70 backdrop-blur-sm text-red-400 text-[10px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1">
-                <span>🔥</span> Precio especial
-              </div>
-            </div>
-          </>
+          </div>
         )}
         
         {/* Price Badge */}
-        <div className={`absolute bottom-3 right-3 px-3 py-1 rounded-full font-bold text-lg shadow-lg ${
-          isPromo 
-            ? 'bg-red-600 text-white' 
-            : 'bg-highlight text-highlight-foreground'
-        }`}>
+        <div className="absolute bottom-3 right-3 bg-highlight text-highlight-foreground px-3 py-1 rounded-full font-bold text-lg shadow-lg">
           ${basePrice}
         </div>
       </div>

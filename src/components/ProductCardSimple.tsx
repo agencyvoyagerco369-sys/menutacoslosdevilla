@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Product, Extra, SizeOption } from '@/types/menu';
 import { useCart } from '@/contexts/CartContext';
-import { Plus, Check, Flame } from 'lucide-react';
+import { Plus, Check } from 'lucide-react';
 
 interface ProductCardSimpleProps {
   product: Product;
@@ -38,17 +38,8 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
   return (
     <article 
       onClick={() => onCustomize(product)}
-      className={`flex gap-3 p-3 rounded-2xl cursor-pointer hover:shadow-md transition-all active:scale-[0.98] relative overflow-hidden ${
-        isPromo 
-          ? 'bg-gradient-to-r from-red-50 to-card border border-red-200/60' 
-          : 'bg-card'
-      }`}
+      className="flex gap-3 p-3 bg-card rounded-2xl cursor-pointer hover:shadow-md transition-all active:scale-[0.98] relative overflow-hidden"
     >
-      {/* Promo left accent bar */}
-      {isPromo && (
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 to-rose-600" />
-      )}
-
       {/* Image */}
       <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
         <img
@@ -57,12 +48,13 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
           className="w-full h-full object-cover"
           loading="lazy"
         />
-        {/* DiDi/Uber style promo badge */}
+        
+        {/* NEW Promo Banner Style */}
         {isPromo && (
-          <div className="absolute top-1.5 left-1.5 z-10">
-            <div className="bg-red-600/90 text-white text-[10px] font-bold pl-1.5 pr-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-sm backdrop-blur-[2px]">
-              <Flame className="w-3 h-3" />
-              Oferta
+          <div className="absolute top-1 left-1 z-10">
+            <div className="bg-gradient-to-r from-[#E31C13] to-[#FF8C00] text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1 uppercase tracking-tight">
+              <span>🔥</span>
+              OFERTA
             </div>
           </div>
         )}
@@ -71,16 +63,9 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
       {/* Content */}
       <div className="flex-1 min-w-0 flex flex-col justify-between py-1">
         <div>
-          <div className="flex items-center gap-1.5">
-            <h3 className="font-semibold text-foreground text-sm leading-tight line-clamp-1">
-              {product.name}
-            </h3>
-            {isPromo && (
-              <span className="shrink-0 bg-red-100 text-red-700 text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wide">
-                AHORRA
-              </span>
-            )}
-          </div>
+          <h3 className="font-semibold text-foreground text-sm leading-tight line-clamp-2">
+            {product.name}
+          </h3>
           <p className="text-muted-foreground text-xs mt-1 line-clamp-2">
             {product.description}
           </p>
@@ -88,16 +73,9 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
         
         {/* Price */}
         <div className="flex items-center justify-between mt-2">
-          <div className="flex items-baseline gap-1.5">
-            <span className={`font-bold text-base ${isPromo ? 'text-red-700' : 'text-foreground'}`}>
-              ${displayPrice}
-            </span>
-            {isPromo && (
-              <span className="text-[10px] text-red-600 font-semibold bg-red-100 px-1.5 py-0.5 rounded">
-                Precio especial
-              </span>
-            )}
-          </div>
+          <span className="font-bold text-foreground text-base">
+            ${displayPrice}
+          </span>
           
           {/* Add Button */}
           <button
@@ -106,9 +84,7 @@ export function ProductCardSimple({ product, onCustomize }: ProductCardSimplePro
             className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
               isAdded 
                 ? 'bg-green-500 text-white' 
-                : isPromo 
-                  ? 'bg-red-600 text-white hover:scale-110 active:scale-95'
-                  : 'bg-primary text-primary-foreground hover:scale-110 active:scale-95'
+                : 'bg-primary text-primary-foreground hover:scale-110 active:scale-95'
             }`}
           >
             {isAdded ? <Check className="w-4 h-4" /> : <Plus className="w-5 h-5" />}
