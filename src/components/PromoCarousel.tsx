@@ -4,19 +4,19 @@ import { useState } from 'react';
 const HIGHLIGHT_BANNERS = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&q=80&w=1000',
+    image: '/images/tacos_asada_guacamole.png',
     title: 'Nuestros Auténticos Tacos',
     subtitle: 'La especialidad de la casa a las brasas',
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1512805147242-c3e794fc1bfa?auto=format&fit=crop&q=80&w=1000',
+    image: '/images/quesadilla_gringa.png',
     title: 'Gringas y Quesadillas',
     subtitle: 'Con abundante queso fundido',
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=1000',
+    image: '/images/taqueria_combo.png',
     title: 'Paquetes Completos',
     subtitle: 'Combos taqueros con bebida incluida',
   }
