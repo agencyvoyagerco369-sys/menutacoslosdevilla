@@ -49,9 +49,22 @@ export default defineConfig(({ mode }) => ({
                 ],
             },
             workbox: {
+                skipWaiting: true,
+                clientsClaim: true,
                 maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-                globPatterns: ["**/*.{js,css,html,ico,png,jpg,jpeg,svg,webp}"],
+                globPatterns: ["**/*.{js,css,html,ico,svg}"],
                 runtimeCaching: [
+                    {
+                        urlPattern: /\.(?:png|jpg|jpeg|webp)$/i,
+                        handler: "StaleWhileRevalidate",
+                        options: {
+                            cacheName: "images-cache",
+                            expiration: {
+                                maxEntries: 50,
+                                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                            },
+                        },
+                    },
                     {
                         urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
                         handler: "CacheFirst",
