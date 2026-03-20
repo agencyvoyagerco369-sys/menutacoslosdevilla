@@ -10,7 +10,7 @@ import POSDesktop from "./pages/POSDesktop";
 import ChatCenter from "./pages/ChatCenter";
 import { POSLayout } from "./layouts/POSLayout";
 
-// v2 – force preview refresh
+// v5 - force update for mobile devices
 const queryClient = new QueryClient();
 
 const App = () => (

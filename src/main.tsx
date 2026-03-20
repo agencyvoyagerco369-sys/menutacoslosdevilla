@@ -1,3 +1,4 @@
+/* v5 - force cache refresh */
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
