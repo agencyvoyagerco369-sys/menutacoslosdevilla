@@ -15,7 +15,8 @@ import aguaCebada from '@/assets/agua-cebada.png';
 import aguaJamaica from '@/assets/agua-jamaica.png';
 import aguaPina from '@/assets/agua-pina.png';
 import aguaTamarindo from '@/assets/agua-tamarindo.png';
-import cocaCola from '@/assets/coca-cola.png';
+import cocaCola355 from '@/assets/coca-cola-355.png';
+import cocaCola600 from '@/assets/coca-cola-600.png';
 
 // Promociones
 import promoTaquera from '@/assets/promo-taquera.png';
@@ -252,18 +253,18 @@ export const MENU_PRODUCTS: Product[] = [
   {
     id: 'coca-cola-355',
     name: 'Coca-Cola 355ml',
-    description: 'Coca-Cola de 355ml bien fría.',
-    price: 20,
-    image: cocaCola,
+    description: 'Coca-Cola de 355ml desechable PET bien fría.',
+    price: 25,
+    image: cocaCola355,
     category: 'bebidas',
     extras: [],
   },
   {
     id: 'coca-cola-600',
     name: 'Coca-Cola 600ml',
-    description: 'Coca-Cola de 600ml bien fría.',
-    price: 25,
-    image: cocaCola,
+    description: 'Coca-Cola de 600ml desechable PET bien fría.',
+    price: 35,
+    image: cocaCola600,
     category: 'bebidas',
     extras: [],
   },
