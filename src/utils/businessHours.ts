@@ -1,10 +1,8 @@
-// Business hours configuration for Cd. Obregón, Sonora, Mexico
-// Timezone: America/Hermosillo (MST, UTC-7, no DST)
+// Business hours configuration for Cd. Obregón, Sonora, Mexico (Timezone: America/Hermosillo)
 
 export const BUSINESS_HOURS = {
-  openHour: 0,   // 12:00 AM (24 hrs)
-  closeHour: 24, // 12:00 AM (24 hrs)
   timezone: 'America/Hermosillo',
+  schedule: 'Dom a Jue: 6pm a 12am | Vie y Sáb: 6pm a 1am',
 };
 
 export const BUSINESS_INFO = {
@@ -13,12 +11,42 @@ export const BUSINESS_INFO = {
   phoneDisplay: '+52 644 204 5477',
   whatsapp: '526442045477',
   googleMapsUrl: 'https://www.google.com/maps/search/Blvd.%20Antonio%20Caso%203751%2C%20Cajeme%2C%2085136%20Cdad.%20Obreg%C3%B3n%2C%20Son.%2C%20M%C3%A9xico/@27.4908,-109.9984,17z?hl=es',
-  schedule: 'Abierto las 24 horas',
+  schedule: 'Dom a Jue: 6pm a 12am | Vie y Sáb: 6pm a 1am',
 };
 
 export function isBusinessOpen(): boolean {
-  // 24 hours — always open
-  return true;
+  const now = new Date();
+  
+  // Parse current time in Hermosillo timezone
+  const hermitTimeString = now.toLocaleString('en-US', { timeZone: 'America/Hermosillo' });
+  const hermitTime = new Date(hermitTimeString);
+  
+  const day = hermitTime.getDay(); // 0 = Sun, 1 = Mon, ..., 6 = Sat
+  const h = hermitTime.getHours();
+  const m = hermitTime.getMinutes();
+  
+  // Use a 'logical day' concept where the day starts at 6 AM.
+  // This allows shifts that go past midnight to stay on the same logical day.
+  let logicalDay = day;
+  let logicalHour = h + (m / 60); // e.g., 6:30 PM becomes 18.5
+  
+  // If the time is before 6 AM, it belongs to the previous logical day's shift
+  if (h < 6) {
+    logicalDay = (day + 6) % 7; // Map 0 (Sun) -> 6 (Sat)
+    logicalHour += 24;          // Map 1 AM -> 25.0
+  }
+  
+  // Domingo (0) a Jueves (4): Abierto de 18:00 a 00:00 (lógico: 18:00 a 24.0)
+  if (logicalDay >= 0 && logicalDay <= 4) {
+    return logicalHour >= 18 && logicalHour < 24;
+  }
+  
+  // Viernes (5) y Sábado (6): Abierto de 18:00 a 01:00 (lógico: 18:00 a 25.0)
+  if (logicalDay === 5 || logicalDay === 6) {
+    return logicalHour >= 18 && logicalHour < 25;
+  }
+  
+  return false;
 }
 
 export function getBusinessStatus(): { isOpen: boolean; message: string } {
@@ -27,12 +55,12 @@ export function getBusinessStatus(): { isOpen: boolean; message: string } {
   if (isOpen) {
     return {
       isOpen: true,
-      message: 'Abierto ahora • Pedidos disponibles 24 hrs',
+      message: 'Abierto ahora • ' + BUSINESS_INFO.schedule,
     };
   }
   
   return {
     isOpen: false,
-    message: 'Cerrado • Intenta más tarde',
+    message: 'Cerrado • ' + BUSINESS_INFO.schedule,
   };
 }

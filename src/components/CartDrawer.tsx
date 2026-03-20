@@ -73,7 +73,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       return;
     }
     if (!isBusinessOpen()) {
-      toast.error('Lo sentimos, estamos cerrados. Nuestro horario es de 10 AM a 6 PM.');
+      toast.error('Lo sentimos, estamos cerrados. Horario: Dom-Jue 6pm-12am, Vie-Sáb 6pm-1am.');
       return;
     }
     const message = generateWhatsAppMessage(items, total, customer);
