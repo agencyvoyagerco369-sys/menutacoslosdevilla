@@ -88,9 +88,14 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
             <div className="w-12 h-12 rounded-2xl bg-primary/15 flex items-center justify-center">
               <Clock className="w-6 h-6 text-primary" strokeWidth={2} />
             </div>
-            <div className="text-center">
-              <span className="text-[11px] font-semibold text-foreground block">Abierto</span>
-              <span className="text-[11px] font-semibold text-foreground">24 Horas</span>
+            <div className="text-center flex flex-col items-center justify-center">
+              <span className={`text-[11px] font-bold ${isOpen ? 'text-secondary' : 'text-destructive'}`}>
+                {isOpen ? 'Abierto' : 'Cerrado'}
+              </span>
+              <span className="text-[9px] font-semibold text-foreground text-center leading-tight mt-0.5">
+                6pm - 12am<br/>
+                <span className="opacity-80">Vie-Sáb 1am</span>
+              </span>
             </div>
           </div>
         </div>
