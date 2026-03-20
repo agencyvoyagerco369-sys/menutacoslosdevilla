@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Product, Extra, SizeOption } from '@/types/menu';
 import { useCart } from '@/contexts/CartContext';
-import { Minus, Plus, ChevronDown, ChevronUp, Check } from 'lucide-react';
+import { Minus, Plus, ChevronDown, ChevronUp, Check, Zap } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -61,9 +61,10 @@ export function ProductCard({ product }: ProductCardProps) {
       setShowExtras(false);
     }, 1500);
   };
+  const isPromo = product.category === 'promociones';
 
   return (
-    <article className="food-card bg-card">
+    <article className={`food-card ${isPromo ? 'ring-2 ring-red-400/30' : ''} bg-card`}>
       {/* Food Image - 60% height */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
@@ -74,18 +75,29 @@ export function ProductCard({ product }: ProductCardProps) {
         />
         <div className="absolute inset-0 food-card-gradient" />
 
-        {/* Promo Banner Style - Único cambio permitido */}
-        {product.category === 'promociones' && (
-          <div className="absolute top-3 left-3 z-10">
-            <div className="bg-gradient-to-r from-[#FF3B30] to-[#FF9500] text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 uppercase tracking-tighter">
-              <span className="text-sm">🔥</span>
-              OFERTA
+        {/* DiDi/Uber style promo badge */}
+        {isPromo && (
+          <>
+            <div className="absolute top-3 left-3 z-10">
+              <div className="bg-red-600 text-white text-[11px] font-bold pl-1.5 pr-2.5 py-1 rounded-lg flex items-center gap-1 shadow-md">
+                <Zap className="w-3.5 h-3.5 fill-yellow-300 text-yellow-300" />
+                Promo
+              </div>
             </div>
-          </div>
+            <div className="absolute top-3 right-3 z-10">
+              <div className="bg-black/70 backdrop-blur-sm text-red-400 text-[10px] font-bold px-2 py-1 rounded-lg">
+                ⚡ Precio especial
+              </div>
+            </div>
+          </>
         )}
         
         {/* Price Badge */}
-        <div className="absolute bottom-3 right-3 bg-highlight text-highlight-foreground px-3 py-1 rounded-full font-bold text-lg shadow-lg">
+        <div className={`absolute bottom-3 right-3 px-3 py-1 rounded-full font-bold text-lg shadow-lg ${
+          isPromo 
+            ? 'bg-red-600 text-white' 
+            : 'bg-highlight text-highlight-foreground'
+        }`}>
           ${basePrice}
         </div>
       </div>
