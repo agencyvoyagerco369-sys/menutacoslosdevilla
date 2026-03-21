@@ -28,19 +28,18 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
       </div>
 
       {/* Cover Image Background (Hero) */}
-      <div className="relative h-32 sm:h-40 w-full overflow-hidden">
-        {/* Usando una imagen muy apetitosa de carne asada estilo parrilla como fondo */}
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9', maxHeight: '320px' }}>
         <img 
-          src="/images/hero-cover.png" 
+          src="/images/pancho-villa-hero.png" 
           alt="Taquería Los de Villa" 
-          className="w-full h-full object-cover object-[center_25%]"
+          className="w-full h-full object-cover object-top"
         />
         {/* Gradiente oscuro sutil para darle elegancia */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
       </div>
 
       {/* Main Header Content */}
-      <div className="px-4 pb-5 relative">
+      <div className="px-4 pb-4 relative">
         {/* Floating Logo */}
         <div className="-mt-12 mb-3 relative z-10">
           <div className="w-24 h-24 rounded-full border-4 border-background overflow-hidden shadow-elevated bg-card">
@@ -52,75 +51,57 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Title & Info (Hierarchy fixed: Brand big, subtitle small) */}
-        <div className="mb-5">
-          <h1 className="font-display font-black text-[26px] text-foreground leading-tight tracking-tight">
-            Taquería Los de Villa
-          </h1>
-          <h2 className="font-display font-bold text-sm text-primary mt-1 uppercase tracking-wider">
-            Carne Asada y Tripa
-          </h2>
-          
-          <div className="flex items-center gap-2 mt-2.5">
-            <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-highlight/20 text-highlight-foreground px-2 py-1 rounded-full">
-              ⭐ 4.9 (200+ calif.)
-            </span>
-            <span className="text-[12px] font-medium text-muted-foreground flex items-center gap-1">
-              <MapPin className="w-3 h-3" /> Cd. Obregón, Son.
-            </span>
+        {/* Title & Delivery Tag Header */}
+        <div className="flex justify-between items-start mb-1">
+          <div>
+            <h1 className="font-display font-black text-[26px] text-foreground leading-tight tracking-tight">
+              Taquería Los de Villa
+            </h1>
+            <h2 className="font-display font-bold text-sm text-primary mt-0.5 uppercase tracking-wider">
+              Carne Asada y Tripa
+            </h2>
           </div>
         </div>
+          
+        <div className="flex items-center gap-2 mt-2 mb-4">
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-highlight/20 text-highlight-foreground px-2 py-1 rounded-full">
+            ⭐ 4.9 (200+)
+          </span>
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-green-500/15 text-green-600 dark:text-green-500 px-2 py-1 rounded-full">
+            🛵 Envío disponible
+          </span>
+          <span className="text-[12px] font-medium text-muted-foreground flex items-center gap-1 ml-auto">
+            <MapPin className="w-3 h-3" /> Cd. Obregón
+          </span>
+        </div>
 
-        {/* Business Info Cards */}
-        <div className="flex gap-2.5 mb-4">
+        {/* Action Chips (Minimalist Row) */}
+        <div className="flex flex-wrap gap-2">
           {/* Location */}
           <button
             onClick={handleLocationClick}
-            className="group flex-1 flex flex-col items-center gap-2 bg-muted/60 rounded-2xl px-2 py-4 hover:bg-muted transition-all duration-200"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-muted/50 hover:bg-muted text-foreground rounded-xl text-[12px] font-semibold transition-colors border border-border/50"
           >
-            <div className="w-12 h-12 rounded-2xl bg-destructive/15 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <MapPin className="w-6 h-6 text-destructive" strokeWidth={2} />
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[11px] font-semibold text-foreground text-center leading-tight">Ver en Google Maps</span>
-              <ExternalLink className="w-3 h-3 text-primary flex-shrink-0" />
-            </div>
+            <MapPin className="w-4 h-4 text-destructive" strokeWidth={2.5} />
+            Ubicación
           </button>
 
           {/* Phone */}
           <button
             onClick={handlePhoneClick}
-            className="group flex-1 flex flex-col items-center gap-2 bg-muted/60 rounded-2xl px-2 py-4 hover:bg-muted transition-all duration-200"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-muted/50 hover:bg-muted text-foreground rounded-xl text-[12px] font-semibold transition-colors border border-border/50"
           >
-            <div className="w-12 h-12 rounded-2xl bg-secondary/15 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Phone className="w-6 h-6 text-secondary" strokeWidth={2} />
-            </div>
-            <span className="text-[11px] font-semibold text-foreground text-center leading-tight">Llamar a la taquería</span>
+            <Phone className="w-4 h-4 text-secondary" strokeWidth={2.5} />
+            Llamar
           </button>
 
           {/* Schedule */}
-          <div className="flex-1 flex flex-col items-center gap-2 bg-muted/60 rounded-2xl px-2 py-4">
-            <div className="w-12 h-12 rounded-2xl bg-primary/15 flex items-center justify-center">
-              <Clock className="w-6 h-6 text-primary" strokeWidth={2} />
-            </div>
-            <div className="text-center flex flex-col items-center justify-center">
-              <span className={`text-[11px] font-bold ${isOpen ? 'text-secondary' : 'text-destructive'}`}>
-                {isOpen ? 'Abierto' : 'Cerrado'}
-              </span>
-              <span className="text-[9px] font-semibold text-foreground text-center leading-tight mt-0.5">
-                6pm - 12am<br/>
-                <span className="opacity-80">Vie-Sáb 1am</span>
-              </span>
-            </div>
+          <div className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-muted/50 text-foreground rounded-xl text-[12px] font-semibold border border-border/50">
+            <Clock className="w-4 h-4 text-primary" strokeWidth={2.5} />
+            <span className={isOpen ? 'text-secondary' : 'text-destructive'}>
+              {isOpen ? 'Abierto' : 'Abre 6pm'}
+            </span>
           </div>
-        </div>
-
-        {/* Delivery Tag */}
-        <div className="flex justify-center">
-          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/20 text-foreground text-sm font-bold">
-            <span className="text-base">🚗</span>
-            Servicio a domicilio
-          </span>
         </div>
       </div>
     </header>
