@@ -28,12 +28,11 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
       </div>
 
       {/* Cover Image Background (Hero) */}
-      <div className="relative h-32 sm:h-40 w-full overflow-hidden">
-        {/* Usando una imagen muy apetitosa de carne asada estilo parrilla como fondo */}
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9', maxHeight: '320px' }}>
         <img 
-          src="/images/hero-cover.png" 
+          src="/images/pancho-villa-hero.png" 
           alt="Taquería Los de Villa" 
-          className="w-full h-full object-cover object-[center_25%]"
+          className="w-full h-full object-cover object-top"
         />
         {/* Gradiente oscuro sutil para darle elegancia */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
