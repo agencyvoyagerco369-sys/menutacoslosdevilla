@@ -30,9 +30,9 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
       {/* Cover Image Background (Hero) */}
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9', maxHeight: '320px' }}>
         <img 
-          src="/images/pancho-villa-hero.png" 
+          src="/images/hero-cover.png" 
           alt="Taquería Los de Villa" 
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-cover object-[center_25%]"
         />
         {/* Gradiente oscuro sutil para darle elegancia */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
