@@ -16,6 +16,12 @@ const HIGHLIGHT_BANNERS = [
   },
   {
     id: 3,
+    image: '/images/chorreadas_especialidad.png',
+    title: 'Chorreadas',
+    subtitle: 'Gordita de masa con asiento, queso fundido y carne asada',
+  },
+  {
+    id: 4,
     image: '/images/taqueria_combo.png',
     title: 'Paquetes Completos',
     subtitle: 'Combos taqueros con bebida incluida',
