@@ -63,14 +63,14 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
           </div>
         </div>
           
-        <div className="flex items-center gap-2 mt-2 mb-4">
+        <div className="flex flex-wrap items-center gap-2 mt-2 mb-4">
           <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-highlight/20 text-highlight-foreground px-2 py-1 rounded-full">
             ⭐ 4.9 (200+)
           </span>
           <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-green-500/15 text-green-600 dark:text-green-500 px-2 py-1 rounded-full">
             🛵 Envío disponible
           </span>
-          <span className="text-[12px] font-medium text-muted-foreground flex items-center gap-1 ml-auto">
+          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
             <MapPin className="w-3 h-3" /> Cd. Obregón
           </span>
         </div>
