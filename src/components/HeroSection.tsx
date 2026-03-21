@@ -20,7 +20,7 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
   return (
     <header className="bg-card">
       {/* Status Bar - Keeping it as a global sticky/thin bar at the very top is best practice */}
-      <div className={`px-4 py-2 ${isOpen ? 'bg-secondary' : 'bg-destructive'}`}>
+      <div className={`px-4 py-2 ${isOpen ? 'bg-green-600' : 'bg-destructive'}`}>
         <div className="flex items-center justify-center gap-2 text-white text-[13px] font-semibold">
           <div className={`w-2 h-2 rounded-full ${isOpen ? 'bg-white animate-pulse' : 'bg-white/80'}`} />
           <span>{message}</span>
@@ -97,9 +97,9 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
 
           {/* Schedule */}
           <div className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-muted/50 text-foreground rounded-xl text-[12px] font-semibold border border-border/50">
-            <Clock className="w-4 h-4 text-primary" strokeWidth={2.5} />
-            <span className={isOpen ? 'text-secondary' : 'text-destructive'}>
-              {isOpen ? 'Abierto' : 'Abre 6pm'}
+            <Clock className={`w-4 h-4 ${isOpen ? 'text-green-600' : 'text-destructive'}`} strokeWidth={2.5} />
+            <span className={isOpen ? 'text-green-600' : 'text-destructive'}>
+              {isOpen ? 'Abierto' : 'Cerrado'}
             </span>
           </div>
         </div>
