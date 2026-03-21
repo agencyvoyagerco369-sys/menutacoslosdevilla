@@ -31,9 +31,9 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
       <div className="relative h-32 sm:h-40 w-full overflow-hidden">
         {/* Usando una imagen muy apetitosa de carne asada estilo parrilla como fondo */}
         <img 
-          src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&q=80&w=1000" 
-          alt="Parrilla Taquería" 
-          className="w-full h-full object-cover"
+          src="/images/hero-cover.png" 
+          alt="Taquería Los de Villa" 
+          className="w-full h-full object-cover object-[center_25%]"
         />
         {/* Gradiente oscuro sutil para darle elegancia */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
