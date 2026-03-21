@@ -4,13 +4,13 @@ import { useState } from 'react';
 const HIGHLIGHT_BANNERS = [
   {
     id: 1,
-    image: '/images/taco_dark_porn.png',
+    image: '/images/tacos_asada_guacamole.png',
     title: 'Nuestros Auténticos Tacos',
     subtitle: 'La especialidad de la casa a las brasas',
   },
   {
     id: 2,
-    image: '/images/quesadilla_dark.png',
+    image: '/images/quesadilla_gringa.png',
     title: 'Gringas y Quesadillas',
     subtitle: 'Con abundante queso fundido',
   },
