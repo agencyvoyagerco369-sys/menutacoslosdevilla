@@ -19,6 +19,12 @@ const HIGHLIGHT_BANNERS = [
     image: '/images/chorreadas_especialidad.png',
     title: 'Chorreadas',
     subtitle: 'Gordita de masa con asiento, queso fundido y carne asada',
+  },
+  {
+    id: 4,
+    image: '/images/carne_asada_picada.png',
+    title: 'Carne Asada Picada',
+    subtitle: 'Jugosos trozos de carne asada a las brasas',
   }
 ];
 
