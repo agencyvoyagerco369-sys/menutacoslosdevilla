@@ -32,7 +32,7 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
         <img 
           src="/images/hero-cover.png" 
           alt="Taquería Los de Villa" 
-          className="w-full h-full object-cover object-[center_25%]"
+          className="w-full h-full object-cover object-top"
         />
         {/* Gradiente oscuro sutil para darle elegancia */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
