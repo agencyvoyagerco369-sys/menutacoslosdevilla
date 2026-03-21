@@ -179,7 +179,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   <div className="text-center py-16">
                     <div className="text-5xl mb-4">🛒</div>
                     <p className="text-foreground font-semibold text-base">Tu carrito está vacío</p>
-                    <p className="text-sm text-muted-foreground mt-1">¡Agrega algo delicioso! 🦐</p>
+                    <p className="text-sm text-muted-foreground mt-1">¡Agrega algo delicioso! 🌮</p>
                   </div>
                 ) : (
                   <>
