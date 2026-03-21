@@ -67,8 +67,8 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
           <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-highlight/20 text-highlight-foreground px-2 py-1 rounded-full">
             ⭐ 4.9 (200+)
           </span>
-          <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-green-500/15 text-green-600 dark:text-green-500 px-2 py-1 rounded-full">
-            🛵 Envío disponible
+          <span className="inline-flex items-center gap-1.5 text-[11.5px] font-bold bg-green-500/15 text-foreground px-2.5 py-1 rounded-full border border-green-500/20">
+            <span className="text-[14px]">🛵</span> Envío disponible
           </span>
           <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
             <MapPin className="w-3 h-3" /> Cd. Obregón
@@ -80,24 +80,24 @@ export function HeroSection({ onViewMenu }: HeroSectionProps) {
           {/* Location */}
           <button
             onClick={handleLocationClick}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-muted/50 hover:bg-muted text-foreground rounded-xl text-[12px] font-semibold transition-colors border border-border/50"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-muted/50 hover:bg-muted text-foreground rounded-xl text-[13px] font-semibold transition-colors border border-border/50"
           >
-            <MapPin className="w-4 h-4 text-destructive" strokeWidth={2.5} />
+            <MapPin className="w-5 h-5 text-destructive" strokeWidth={2} />
             Ubicación
           </button>
 
           {/* Phone */}
           <button
             onClick={handlePhoneClick}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-muted/50 hover:bg-muted text-foreground rounded-xl text-[12px] font-semibold transition-colors border border-border/50"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-muted/50 hover:bg-muted text-foreground rounded-xl text-[13px] font-semibold transition-colors border border-border/50"
           >
-            <Phone className="w-4 h-4 text-secondary" strokeWidth={2.5} />
+            <Phone className="w-5 h-5 text-secondary" strokeWidth={2} />
             Llamar
           </button>
 
           {/* Schedule */}
-          <div className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-muted/50 text-foreground rounded-xl text-[12px] font-semibold border border-border/50">
-            <Clock className={`w-4 h-4 ${isOpen ? 'text-green-600' : 'text-destructive'}`} strokeWidth={2.5} />
+          <div className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-muted/50 text-foreground rounded-xl text-[13px] font-semibold border border-border/50">
+            <Clock className={`w-5 h-5 ${isOpen ? 'text-green-600' : 'text-destructive'}`} strokeWidth={2} />
             <span className={isOpen ? 'text-green-600' : 'text-destructive'}>
               {isOpen ? 'Abierto' : 'Cerrado'}
             </span>
