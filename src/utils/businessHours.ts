@@ -55,12 +55,12 @@ export function getBusinessStatus(): { isOpen: boolean; message: string } {
   if (isOpen) {
     return {
       isOpen: true,
-      message: '🔥 ¡LA PARRILLA ESTÁ ENCENDIDA! PIDE TUS TACOS AHORA 🔥',
+      message: 'Abierto • Recibiendo pedidos',
     };
   }
   
   return {
     isOpen: false,
-    message: '💤 CERRADO AHORA • Prendemos el carbón a las 6:00 PM 🌮',
+    message: 'Cerrado • Abrimos a las 6:00 PM',
   };
 }
