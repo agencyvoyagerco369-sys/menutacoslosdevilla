@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
     plugins: [
         react(),
         mode === "development" && componentTagger(),
-        VitePWA({
+        mode !== "development" && VitePWA({
             // Only register the SW in production builds — prevents caching issues in Lovable editor
             devOptions: { enabled: false },
             registerType: "autoUpdate",
