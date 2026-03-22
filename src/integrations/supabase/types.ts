@@ -14,7 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      whatsapp_orders: {
+        Row: {
+          created_at: string | null
+          customer_address: string | null
+          customer_name: string
+          customer_phone: string
+          id: string
+          order_details: Json | null
+          order_total: number
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          customer_address?: string | null
+          customer_name: string
+          customer_phone: string
+          id?: string
+          order_details?: Json | null
+          order_total?: number
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          customer_address?: string | null
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          order_details?: Json | null
+          order_total?: number
+          status?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
