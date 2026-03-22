@@ -30,6 +30,8 @@ const INITIAL_CUSTOMER: CustomerInfo = {
   cashAmount: '',
 };
 
+import { supabase } from '@/integrations/supabase/client';
+
 export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, total, updateQuantity, removeItem, clearCart } = useCart();
   const [step, setStep] = useState<'cart' | 'delivery'>('cart');
@@ -68,7 +70,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     setStep('cart');
   };
 
-  const handleSendOrder = () => {
+  const handleSendOrder = async () => {
     if (!validateDeliveryForm()) {
       toast.error('Completa todos los campos obligatorios');
       return;
@@ -77,6 +79,32 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       toast.error('Lo sentimos, estamos cerrados. Horario: Dom-Jue 6pm-12am, Vie-Sáb 6pm-1am.');
       return;
     }
+
+    // 💾 GUARDAR EN BASE DE DATOS (Supabase)
+    try {
+      const address = `${customer.street} #${customer.exteriorNumber}${customer.interiorNumber ? ', Int. ' + customer.interiorNumber : ''}, Col. ${customer.neighborhood}`;
+      
+      const { error } = await (supabase as any).from('whatsapp_orders').insert({
+        customer_name: customer.name,
+        customer_phone: customer.phone,
+        customer_address: address,
+        order_total: total,
+        order_details: items.map(item => ({
+          name: item.product.name,
+          qty: item.quantity,
+          subtotal: item.subtotal,
+          extras: item.selectedExtras.map(e => e.name),
+          notes: item.notes
+        }))
+      });
+
+      if (error) {
+        console.error('Error saving order to database:', error);
+      }
+    } catch (dbError) {
+      console.error('Critical database error:', dbError);
+    }
+
     // Confetti effect!
     const duration = 3 * 1000;
     const animationEnd = Date.now() + duration;

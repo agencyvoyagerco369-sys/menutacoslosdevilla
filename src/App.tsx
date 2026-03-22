@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import POSDesktop from "./pages/POSDesktop";
 import ChatCenter from "./pages/ChatCenter";
+import OrdersDashboard from "./pages/OrdersDashboard";
 import { POSLayout } from "./layouts/POSLayout";
 
 // v5 - force update for mobile devices
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/admin" element={<POSLayout />}>
             <Route path="pos" element={<POSDesktop />} />
             <Route path="mensajes" element={<ChatCenter />} />
+            <Route path="dashboard" element={<OrdersDashboard />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
