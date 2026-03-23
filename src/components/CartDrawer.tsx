@@ -72,6 +72,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   };
 
   const handleSendOrder = async () => {
+    if (isSending) return;
     if (!validateDeliveryForm()) {
       toast.error('Completa todos los campos obligatorios');
       return;
@@ -80,6 +81,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       toast.error('Lo sentimos, estamos cerrados. Horario: Dom-Jue 6pm-12am, Vie-Sáb 6pm-1am.');
       return;
     }
+
+    setIsSending(true);
 
     // 💾 GUARDAR EN BASE DE DATOS (Supabase)
     try {
