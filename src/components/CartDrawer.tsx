@@ -142,7 +142,9 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       clearCart();
       setCustomer(INITIAL_CUSTOMER);
       setStep('cart');
+      setIsSending(false);
       onClose();
+    }, 800);
     }, 800);
   };
 
