@@ -36,6 +36,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, total, updateQuantity, removeItem, clearCart } = useCart();
   const [step, setStep] = useState<'cart' | 'delivery'>('cart');
   const [customer, setCustomer] = useState<CustomerInfo>(INITIAL_CUSTOMER);
+  const [isSending, setIsSending] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const updateCustomer = (field: keyof CustomerInfo, value: string | boolean) => {
