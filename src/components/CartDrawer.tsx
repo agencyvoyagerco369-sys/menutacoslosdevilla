@@ -36,6 +36,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, total, updateQuantity, removeItem, clearCart } = useCart();
   const [step, setStep] = useState<'cart' | 'delivery'>('cart');
   const [customer, setCustomer] = useState<CustomerInfo>(INITIAL_CUSTOMER);
+  const [isSending, setIsSending] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const updateCustomer = (field: keyof CustomerInfo, value: string | boolean) => {
@@ -71,6 +72,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   };
 
   const handleSendOrder = async () => {
+    if (isSending) return;
     if (!validateDeliveryForm()) {
       toast.error('Completa todos los campos obligatorios');
       return;
@@ -79,6 +81,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       toast.error('Lo sentimos, estamos cerrados. Horario: Dom-Jue 6pm-12am, Vie-Sáb 6pm-1am.');
       return;
     }
+
+    setIsSending(true);
 
     // 💾 GUARDAR EN BASE DE DATOS (Supabase)
     try {
@@ -138,6 +142,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       clearCart();
       setCustomer(INITIAL_CUSTOMER);
       setStep('cart');
+      setIsSending(false);
       onClose();
     }, 800);
   };
@@ -481,7 +486,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               {ORDERS_ENABLED ? (
                 <button
                   onClick={handleSendOrder}
-                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 text-base transition-colors active:scale-[0.98]"
+                  disabled={isSending}
+                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 text-base transition-colors active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
                 >
                   <Send className="w-4 h-4" />
                   Enviar pedido por WhatsApp
