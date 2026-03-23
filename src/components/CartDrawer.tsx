@@ -486,7 +486,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               {ORDERS_ENABLED ? (
                 <button
                   onClick={handleSendOrder}
-                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 text-base transition-colors active:scale-[0.98]"
+                  disabled={isSending}
+                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 text-base transition-colors active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
                 >
                   <Send className="w-4 h-4" />
                   Enviar pedido por WhatsApp
