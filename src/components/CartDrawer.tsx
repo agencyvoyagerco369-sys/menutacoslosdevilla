@@ -145,7 +145,6 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       setIsSending(false);
       onClose();
     }, 800);
-    }, 800);
   };
 
   const handleClose = () => {
