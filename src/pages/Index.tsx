@@ -13,9 +13,30 @@ import { PromoCarousel } from '@/components/PromoCarousel';
 import { useEffect, useRef } from 'react';
 
 function MenuApp() {
+  // 🔒 MANTENIMIENTO — Cambiar a false para salir de mantenimiento
+  const MAINTENANCE_MODE = true;
+
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [customizeProduct, setCustomizeProduct] = useState<Product | null>(null);
+
+  if (MAINTENANCE_MODE) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-8 text-center animate-in fade-in duration-700">
+        <div className="w-24 h-24 mb-6 rounded-full mx-auto shadow-elevated bg-card border-4 border-border overflow-hidden flex items-center justify-center text-5xl">
+          🌮
+        </div>
+        <h1 className="text-3xl font-extrabold mb-4 tracking-tight">¡Volvemos Pronto!</h1>
+        <p className="text-muted-foreground text-[16px] font-medium leading-relaxed max-w-xs mx-auto mb-10">
+          Estamos afinando la parrilla y mejorando nuestra app para ofrecerte más opciones. ¡No te vayas lejos!
+        </p>
+        <div className="inline-flex items-center justify-center rounded-full bg-orange-500/15 px-5 py-2.5">
+          <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse mr-2" />
+          <span className="text-sm font-bold text-orange-600">Sistema en Mantenimiento</span>
+        </div>
+      </div>
+    );
+  }
 
   // References and Observer for Sticky Scroll Sync
   const observer = useRef<IntersectionObserver | null>(null);
