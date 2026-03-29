@@ -13,7 +13,7 @@ interface CartDrawerProps {
 }
 
 // 🔒 CANDADO DE PEDIDOS — Cambiar a true para activar el botón de WhatsApp
-const ORDERS_ENABLED = true;
+const ORDERS_ENABLED = false;
 
 const INITIAL_CUSTOMER: CustomerInfo = {
   name: '',
