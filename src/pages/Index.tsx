@@ -14,7 +14,7 @@ import { useEffect, useRef } from 'react';
 
 function MenuApp() {
   // 🔒 MANTENIMIENTO — Cambiar a false para salir de mantenimiento
-  const MAINTENANCE_MODE = true;
+  const MAINTENANCE_MODE = false;
 
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id);
   const [isCartOpen, setIsCartOpen] = useState(false);
