@@ -95,9 +95,9 @@ export function sendToWhatsApp(message: string): void {
 
   const encodedMessage = encodeURIComponent(message);
   
-  // wa.me es el estándar universal recomendado por WhatsApp
-  // Funciona en iOS (abre app), Android (abre app), y Desktop (abre WhatsApp Web/Desktop)
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  // Utilizar el formato universal recomendado y 100% compatible para Android e iOS.
+  // Abre directo WhatsApp (normal o Business) si está instalado, sin fallar en navegadores móviles.
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
 
   // En móvil, usar location.href es más confiable que window.open
   // ya que evita bloqueos de popup y abre la app nativa directamente
