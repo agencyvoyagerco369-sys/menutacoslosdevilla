@@ -1,6 +1,6 @@
 import { CustomerInfo, CartItem } from '@/types/menu';
 
-const WHATSAPP_NUMBER = '526442045477';
+const WHATSAPP_NUMBER = '526442279780';
 
 /**
  * Genera un mensaje de pedido pre-formateado para WhatsApp

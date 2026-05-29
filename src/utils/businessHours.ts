@@ -7,9 +7,9 @@ export const BUSINESS_HOURS = {
 
 export const BUSINESS_INFO = {
   name: 'Taquería Los de Villa',
-  phone: '+526442045477',
-  phoneDisplay: '+52 644 204 5477',
-  whatsapp: '526442045477',
+  phone: '+526442279780',
+  phoneDisplay: '+52 644 227 9780',
+  whatsapp: '526442279780',
   googleMapsUrl: 'https://www.google.com/maps/search/Blvd.%20Antonio%20Caso%203751%2C%20Cajeme%2C%2085136%20Cdad.%20Obreg%C3%B3n%2C%20Son.%2C%20M%C3%A9xico/@27.4908,-109.9984,17z?hl=es',
   schedule: 'Dom a Jue: 6pm a 12am | Vie y Sáb: 6pm a 1am',
 };
